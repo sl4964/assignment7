@@ -4,7 +4,7 @@ import unittest
 
 class IntervalTest(unittest.TestCase):
     '''
-    Run the test from console by:
+    Run the test in the project root directory from console by:
     $ python -m unittest discover
     '''
     def test_default_ctor(self):
