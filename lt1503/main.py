@@ -1,7 +1,7 @@
 import sys
 import interval
 
-#PromptUser is the main function that a user interacts with to create intervals
+#PromptUser is the main function that a user interacts with to create intervals 
 def PromptUser():
     """get list of intervals to start, then get one more interval at a time.
     'quit' or ctrl+c exits"""
