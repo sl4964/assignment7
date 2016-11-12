@@ -1,4 +1,3 @@
-import sys
 import numpy as np
 
 
@@ -11,7 +10,7 @@ def get_integer_if_possible(s):
     """get an integer from the input, or raise a value error if s does not represent an integer"""
     try: 
         return int(s)
-    except:
+    except ValueError:
         raise ValueError('%s is not an integer' % (s))
 
 INCLUSIVE = 0
@@ -34,9 +33,8 @@ class interval(object):
         try:
             cleaned_input = user_input.strip()
             self.left_input,self.right_input = str.split(cleaned_input, ",")
-        except:
+        except ValueError:
             raise ValueError("cannot split %s with by one comma", (cleaned_input))
-            sys.exit(0)
         self._set_bounds()
 
     def __eq__(self, other):
