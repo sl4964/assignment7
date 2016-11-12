@@ -36,6 +36,7 @@ class IntervalTest(unittest.TestCase):
         def assertValueError(s):
             with self.assertRaises(ValueError):
                 interval.fromString(s)
+        assertValueError('')
         assertValueError('   (  8  9  ,  100 ]')
         assertValueError('(8,9)')
         assertValueError('[5]')
@@ -48,6 +49,10 @@ class IntervalTest(unittest.TestCase):
         assertValueError('[a,c]')
 
     def test_eq(self):
+        '''
+        Check if == operator and != operator works, so that we can directly
+        use assertEqual() to check interval equivalence.
+        '''
         self.assertTrue(interval(3, 8) == interval(3, 8))
         self.assertEqual(interval(3, 8), interval(3, 8))
         self.assertFalse(interval(3, 8) != interval(3, 8))

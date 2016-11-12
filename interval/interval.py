@@ -3,6 +3,13 @@ import re
 
 class interval(object):
     def __init__(self, left, right):
+        '''
+        Parameters
+        ----------
+        left, right : int
+            Left-end and right-end values.  left should be always smaller
+            than right.
+        '''
         if left > right:
             raise ValueError("left value bigger than right")
         self._left = left
@@ -19,9 +26,18 @@ class interval(object):
         '''
         Parse a string representation of an interval.
         Ignores all leading and trailing whitespaces.
-        Does not allow empty intervals (i.e. left > right)
+        Does not allow empty intervals (i.e. left > right).
+        Does not allow empty string as input.
+
+        Examples
+        --------
+        >>> interval.fromString('[5,9)')
+        interval(5, 8)
         '''
         s = s.strip()
+        if s == '':
+            raise ValueError("empty string not allowed")
+
         if s[0] == '(':
             left_open = True
         elif s[0] == '[':
@@ -61,6 +77,24 @@ class interval(object):
 
 
 def _sortTwo(int1, int2):
+    '''
+    Sorts two intervals according to left-end value in ascending order.
+
+    Parameters
+    ----------
+    int1, int2 : interval
+
+    Returns
+    -------
+    int_left, int_right : interval
+        The left-end value of int_left is smaller or equal to that of
+        int_right.
+
+    Notes
+    -----
+    This function does not care about right-end values, so they can appear
+    in any order.
+    '''
     if int1._left < int2._left:
         int_left = int1
         int_right = int2
@@ -71,6 +105,17 @@ def _sortTwo(int1, int2):
 
 
 def overlapOrAdjacent(int1, int2):
+    '''
+    Determines if two intervals overlap or are adjacent to each other.
+
+    Parameters
+    ----------
+    int1, int2 : interval
+
+    Returns
+    -------
+    overlapOrAdjacent : bool
+    '''
     int_left, int_right = _sortTwo(int1, int2)
     if int_left._right < int_right._left - 1:
         return False
@@ -79,6 +124,23 @@ def overlapOrAdjacent(int1, int2):
 
 
 def mergeIntervals(int1, int2):
+    '''
+    Merges two intervals if they overlap or are adjacent, or throws an
+    exception otherwise.
+
+    Parameters
+    ----------
+    int1, int2 : interval
+
+    Returns
+    -------
+    merged : interval
+
+    Throws
+    ------
+    ValueError
+        if int1 and int2 are not adjacent or don't overlap.
+    '''
     if not overlapOrAdjacent(int1, int2):
         raise ValueError('intervals are not overlapping or adjacent')
     return interval(
@@ -88,12 +150,29 @@ def mergeIntervals(int1, int2):
 
 
 def mergeOverlapping(intervals):
+    '''
+    Merges all the possible intervals in the given list, and returns
+    a list of disjoint intervals.
+    Empty list is allowed, and an empty list is returned in this case.
+
+    Parameters
+    ----------
+    intervals : list or any iterable of interval
+
+    Returns
+    -------
+    merged : list of interval
+    '''
     # Handle empty list separately
     if len(intervals) == 0:
         return []
 
     intervals = sorted(intervals, key=lambda x: x._left)
     merged = [intervals[0]]
+    # Merge intervals one by one: for each interval, check if it can be
+    # merged to the last interval in the @merged list.  Replace the last
+    # interval with the merged one if so, or append current interval
+    # to the list otherwise.
     for i in range(1, len(intervals)):
         if overlapOrAdjacent(merged[-1], intervals[i]):
             merged[-1] = mergeIntervals(merged[-1], intervals[i])
@@ -103,4 +182,20 @@ def mergeOverlapping(intervals):
 
 
 def insert(intervals, newint):
+    '''
+    Insert and merge an interval @newint into a list of intervals given in
+    @intervals, and returns a list of disjoint intervals.
+
+    This is just a wrapper of mergeOverlapping(), and @intervals does not
+    need to be disjoint.
+
+    Parameters
+    ----------
+    intervals : list or any iterable of interval
+    newint : interval
+
+    Returns
+    -------
+    merged : list of interval
+    '''
     return mergeOverlapping(intervals + [newint])
