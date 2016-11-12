@@ -1,17 +1,22 @@
 import unittest
-from interval import *
+from interval.interval import *
 
 #The following are test cases to ensure correct functionality of intervals
 class MyTest(unittest.TestCase):
-    """unit tests for functions relating to the interval class"""
+    """unit tests for functions relating to the interval class
+    These should be run by enterring the command "python -m unittest discover"
+    from the root directory of this project
+    """
     def test_interval(self):
         """unit tests for the interval constructor"""
+
+        # test expected behavior for correctly formatted inputs
         int1 = interval('[1,2)')
         self.assertEqual('[1,2)', str(int1))
         intneg1 = interval('[-1,0)')
         self.assertEqual('[-1,0)', str(intneg1))
         int1strict = interval('[1,1]')
-        #check that [1, 2) is equal to [1,1]
+        # check that [1, 2) is equal to [1,1]
         self.assertEqual(int1, int1strict)
         self.assertEqual('[1,2)', str(int1))
         int2 = interval('(1,2]')
@@ -22,6 +27,8 @@ class MyTest(unittest.TestCase):
         self.assertEqual('[1,3]', str(int13))
         intwithspaces = interval('       [ 1  , 2  )  ')
         self.assertEqual('[1,2)', str(intwithspaces))
+
+        # test expected behavior for incorrectly formatted inputs
         with self.assertRaises(ValueError):
             int1 = interval('[1, a)')
         with self.assertRaises(ValueError):
@@ -48,6 +55,8 @@ class MyTest(unittest.TestCase):
 
     def test_mergeIntervals(self):
         """unit tests for the mergeIntervals function"""
+
+        # test expected behavior for correctly formatted inputs
         int1 = interval('[1,2)')
         int2 = interval('(1,2]')
         int12 = interval('[1,2]')
@@ -58,6 +67,8 @@ class MyTest(unittest.TestCase):
         self.assertEqual(int13, mergeIntervals(int12, int3))
         int4 = interval('(3,4]')
         int58 = interval('[5,8]')
+
+        # test expected behavior for incorrectly formatted inputs
         with self.assertRaises(ValueError):
             int1 = mergeIntervals(int1, int4)
         with self.assertRaises(ValueError):
@@ -88,6 +99,8 @@ class MyTest(unittest.TestCase):
 
     def test_mergeOverlapping(self):
         """unit tests for the mergeOverlapping function"""
+
+        # test expected behavior for correctly formatted inputs
         int1 = interval('[1,2)')
         int2 = interval('(1,2]')
         int12 = interval('[1,2]')
@@ -110,6 +123,8 @@ class MyTest(unittest.TestCase):
         self.assertEqual([int13], mergeOverlapping([int1, int2, int3]))
         self.assertEqual([int13], mergeOverlapping([int1, int2, int2, int3, int12]))
         self.assertEqual([int1], mergeOverlapping([int1]))
+
+        # test expected behavior for incorrectly formatted inputs
         with self.assertRaises(ValueError):
             int1 = mergeOverlapping([int1, 4])
         with self.assertRaises(ValueError):
@@ -131,6 +146,8 @@ class MyTest(unittest.TestCase):
 
     def test_insert(self):
         """unit tests for the insert function"""
+
+        # test expected behavior for correctly formatted inputs
         int1 = interval('[1,2)')
         int2 = interval('(1,2]')
         int12 = interval('[1,2]')
@@ -148,6 +165,8 @@ class MyTest(unittest.TestCase):
         self.assertEqual([int13], insert([int2, int3], int1))
         self.assertEqual([int13], insert([int1, int2, int2, int3], int12))
         self.assertEqual([int1], insert([int1], int1))
+
+        # test expected behavior for incorrectly formatted inputs
         with self.assertRaises(ValueError):
             int1 = insert([int1], 4)
         with self.assertRaises(ValueError):
@@ -168,6 +187,8 @@ class MyTest(unittest.TestCase):
 
     def test_get_interval_list(self):
         """unit tests for the get_interval_list function"""
+
+        # test expected behavior for correctly formatted inputs
         int12 = interval('[1,2]')
         processed12 = get_interval_list('[1, 2), (1, 2]')
         self.assertEqual([int12], processed12)
@@ -180,6 +201,8 @@ class MyTest(unittest.TestCase):
         self.assertEqual([int13], get_interval_list("[2, 3], [1,2]"))
         int4 = interval('(3,4]')
         int58 = interval('[5,8]')
+
+        # test expected behavior for incorrectly formatted inputs
         with self.assertRaises(ValueError):
             int1 = get_interval_list("")
         with self.assertRaises(ValueError):

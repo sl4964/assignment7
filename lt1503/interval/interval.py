@@ -32,7 +32,7 @@ class interval(object):
         self._lower_bound_value = -np.inf
         self._upper_bound_value = np.inf
         try:
-            cleaned_input = user_input.strip()#remove_whitespace(user_input)
+            cleaned_input = user_input.strip()
             self.left_input,self.right_input = str.split(cleaned_input, ",")
         except:
             raise ValueError("cannot split %s with by one comma", (cleaned_input))
@@ -149,7 +149,8 @@ def no_space_intervals(left_interval, right_interval):
            right_interval.get_highest_value() >= left_interval.get_highest_value() - 1
 
 def mergeIntervals(left_interval, right_interval):
-    """attempt to merge the two intervals"""
+    """attempt to merge the two intervals. Should only be called if intervals are mergeable.
+    If intervals are not mergeable, then this should raise a ValueError"""
     if no_space_intervals(left_interval, right_interval):
         new_interval = interval(left_interval.__repr__())
         if right_interval.get_approximate_lowest_value() < left_interval.get_approximate_lowest_value():
@@ -169,8 +170,11 @@ def iteratively_merge_sorted(intervals):
     
     for next_interval in intervals[1:]:
         if no_space_intervals(activeInterval, next_interval):
+            # Iterate through the intervals by their lower bound, merging if possible
             activeInterval = mergeIntervals(activeInterval, next_interval)
         else:
+            # If a merge is not possible, start over
+            # with the larger interval as the new activeInterval
             mergedIntervals.append(activeInterval)
             activeInterval = next_interval
             
@@ -208,13 +212,22 @@ def get_interval_list(user_input):
     """get list of intervals from string of intervals, or raise a ValueError"""
     if not isinstance(user_input, str):
         raise ValueError("get_interval_list only takes in strings. Received %s" % (type(user_input)))
-    cleaned_input = user_input.strip()#remove_whitespace(user_input)
+    cleaned_input = user_input.strip()
     intervals = []
     split_intervals = str.split(cleaned_input, ',')
+
+    # The user_input interval list must be split by commas between intervals.
+    # However, each interval also contains a comma.
+    # Therefore, we split by intervals by commas and enforce that there should be an even number
+    # of resulting sections. If there is an even number of resulting splits, we should be able to merge
+    # every other section and get an appropriately structured interval out of the ','.join() output.
+    # Otherwise, interval(single_interval) will raise a ValueError if the input from the user was not
+    # correctly structured.
     if len(split_intervals) % 2 != 0:
         raise ValueError("Input data formatted wrong %s" % (cleaned_input))
     for idx in range(0, len(split_intervals), 2):
         single_interval = ",".join([split_intervals[idx].strip(),split_intervals[idx+1].strip()])
+        # Raises a ValueError if single_interval is not correctly structured as an interval
         intervals.append(interval(single_interval))
     return mergeOverlapping(intervals)
         
