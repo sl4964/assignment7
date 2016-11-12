@@ -135,7 +135,7 @@ class interval(object):
         if upper_bound_value >= self.lower_bound_value + buffer:
             self._upper_bound_value = upper_bound_value
         else:
-            raise ValueError("upper bound ' %c ' is not high enough" % (upper_bound_value))
+            raise ValueError("upper bound ' %s ' is not high enough" % str(upper_bound_value))
             
         
 

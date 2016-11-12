@@ -26,7 +26,7 @@ def prompt_user():
             # Exit if the user enters Ctrl+D
             sys.exit(0)
 
-        except:
+        except ValueError:
             print("Invalid list of intervals")
 
     # active_intervals maintains a list of intervals merged from the user input so far
@@ -50,7 +50,7 @@ def prompt_user():
             # Exit if the user enters Ctrl+D
             sys.exit(0)
 
-        except:
+        except ValueError:
             print("Invalid interval")
 
 
