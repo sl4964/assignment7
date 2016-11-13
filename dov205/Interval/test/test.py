@@ -15,10 +15,10 @@ class IntervalTest(unittest.TestCase):
         """Test the creation of valid inputs to Interval constructor."""
 
         # Initialize list of values we would expect to be valid
-        valid = ['[0, 10]', '[0, 10)', '(0, 10]', '(0, 10)',        # "Nice" inputs
+        valid = ['[0, 10]', '[0, 10)', '(0, 10]', '(0, 10)',         # "Nice" inputs
                  '[0, 1]', '[0, 1)', '(0, 1]', '[0, +1]',
                  '[-1, 1]', '[-1, 1)', '(-1, 1]', '(-1, +1)',        # Start negative
-                 '[-3, -1]', '[-3, -1)', '(-3, -1]', '(-3, -1)',    # Start, end negative
+                 '[-3, -1]', '[-3, -1)', '(-3, -1]', '(-3, -1)',     # Start, end negative
                  '[0,10]', ' [0,10]', ' [ 0,10]', ' [ +0 ,10]',      # Whitespace abuse
                  ' [ +0 , 10]', ' [ 0 , 10 ]', ' [ 0 , 10 ] ',
                  '[00, 10]',  '[-03, -00]', '[0, +000010]']          # Leading 0's
