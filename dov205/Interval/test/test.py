@@ -3,7 +3,7 @@ from assignment7 import *
 
 
 class IntervalTest(unittest.TestCase):
-    """Unit-testing class that allows us to run tests with expected outcomes
+    """Unit-testing class that allows us to run tests with expected outcomes/
 
     Run the test in the project's root directory (e.g. pwd should be '.../dov205/')
     with the following command:
@@ -12,7 +12,7 @@ class IntervalTest(unittest.TestCase):
     """
 
     def test_valid_creation(self):
-        """Test the creation of valid inputs to Interval constructor"""
+        """Test the creation of valid inputs to Interval constructor."""
 
         # Initialize list of values we would expect to be valid
         valid = ['[0, 10]', '[0, 10)', '(0, 10]', '(0, 10)',        # "Nice" inputs
@@ -72,7 +72,7 @@ class IntervalTest(unittest.TestCase):
         ne_1, ne_2 = Interval('[0, 5]'), Interval('[0, 5)')
         ne_3, ne_4 = Interval('(-00001, 5]'), Interval('(-2, 4]')
 
-        # Assert that all three are not equal.
+        # Assert that all are not equal.
         not_equal_error = 'Error: Intervals that should not be equal are equal.'
         self.assertNotEqual(ne_1, ne_2, not_equal_error)
         self.assertNotEqual(ne_2, ne_3, not_equal_error)
@@ -90,6 +90,8 @@ class IntervalTest(unittest.TestCase):
         expected_result = Interval('[0, 9]')
         result = merge_overlapping(intervals_list)[0]
 
+        # Assert that after merging overlapping Intervals we arrive at
+        # the expected result.
         self.assertEqual(result, expected_result, 'Error: merge overlapping returned invalid result.')
 
     def test_provided_merge_overlapping(self):
@@ -105,7 +107,7 @@ class IntervalTest(unittest.TestCase):
         result = merge_overlapping(intervals)
         expected_result = [Interval('[1,6)'), Interval('[8,18]')]
 
-        # Assert our :result and :expected_result are equal
+        # Assert our :result and :expected_result are equal.
         self.assertEqual(result, expected_result, 'Error: merge_overlapping() is incorrect on sample input.')
 
     def test_provided_insert(self):
@@ -138,7 +140,7 @@ class IntervalTest(unittest.TestCase):
             # Obtain result from call to insert()
             example['result'] = insert_into(example['intervals'], example['insert'])
 
-            # Assert our :result and :expected_result are equal
+            # Assert our :result and :expected_result are equal.
             self.assertEqual(example['result'], example['expected_result'],
                              'Error: insert_into() is incorrect on sample input.')
 

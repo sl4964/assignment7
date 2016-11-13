@@ -8,7 +8,11 @@ def main():
         # Receive user input and split on comma.
         components = input('Comma-separated list of intervals: ').split(',')
 
-    except (KeyboardInterrupt, EOFError):
+    except EOFError:
+        print("End-of-file error. Exiting...")
+        sys.exit(1)
+
+    except (KeyboardInterrupt, SystemExit):
         print('Exiting...')
         sys.exit(1)
 
@@ -119,8 +123,8 @@ def interactive_input(intervals: List[Interval]):
             intervals = insert_into(intervals, interval)
             print(', '.join([str(interval) for interval in intervals]))
 
-        # If we cannot insert the response into :interval,
-        # locate the exception, tell the user what happened,
+        # If we cannot create an Interval object or insert the response
+        # into :interval, locate the exception, tell the user what happened,
         # and continue.
         except ParsingException as p:
             print(str(p), file=sys.stderr)
@@ -136,6 +140,7 @@ def interactive_input(intervals: List[Interval]):
             break
 
         except (KeyboardInterrupt, SystemExit):
+            print("Exiting...")
             break
 
         # Once we've reasonably handled exceptions, prompt the user
