@@ -35,7 +35,7 @@ class IntervalTest(unittest.TestCase):
 
         # Define intervals that we would expect to raise a ParsingException
         invalid = ['', '[', ']', '[]', '(', ')', '()', '[,]',
-                   '[4.0, 9.0]', '[1.1]', '[3, [4, 9]]', '[4i, 0]',
+                   '[4.0, 9.0]', '[1.1]', '[3, [4, 9]]', '[4i, 0]'
                    ]
 
         # Container for any valid intervals
