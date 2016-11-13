@@ -3,13 +3,12 @@ from typing import List, Any
 
 
 class IntervalError(Exception):
-    """Base Interval exception class"""
+    """Base Interval exception class."""
     pass
 
 
 class ParsingException(IntervalError):
-    """When unable to parse user-defined Interval"""
-
+    """Raised when unable to parse user-defined Interval."""
     def __init__(self, interval):
         self.interval = interval
 
@@ -19,7 +18,7 @@ class ParsingException(IntervalError):
 
 
 class GroupingException(IntervalError):
-    """When either of user-defined Interval's grouping symbols are invalid"""
+    """Raised when either of user-defined Interval's grouping symbols are invalid."""
     def __init__(self, opening, closing):
         self.opening = opening
         self.closing = closing
@@ -30,8 +29,7 @@ class GroupingException(IntervalError):
 
 
 class RangeException(IntervalError):
-    """When user's grouping and range values are not allowed"""
-
+    """Raised when user's grouping and range values are not allowed."""
     def __init__(self, lower, upper):
         self.lower = lower
         self.upper = upper
@@ -42,16 +40,14 @@ class RangeException(IntervalError):
 
 
 class RangeMismatchException(RangeException):
-    """When user-defined Interval's lower and upper values are not allowed"""
-
+    """Raised when user-defined Interval's lower and upper values are not allowed."""
     def __str__(self):
         return "Interval has invalid range -- {} (left) cannot " \
                "be greater than than {} (right).".format(self.lower, self.upper)
 
 
 class DisjointIntervalException(IntervalError):
-    """When two Interval objects cannot be merged"""
-
+    """Raised when two Interval objects cannot be merged."""
     def __init__(self, interval_1, interval_2):
         self.interval_1 = interval_1
         self.interval_2 = interval_2
@@ -62,8 +58,7 @@ class DisjointIntervalException(IntervalError):
 
 
 class UserInputException(IntervalError):
-    """When a user's initial input to main() is not a valid list of intervals"""
-
+    """Raised when a user's initial input to main() is not a valid list of intervals"""
     def __init__(self, components):
         self.components = components
 
@@ -73,9 +68,10 @@ class UserInputException(IntervalError):
 
 
 class Interval:
+    """Our representation of a set notation interval."""
 
     def __init__(self, interval_input: str):
-        """ Initialize instance of Interval class
+        """Initialize instance of Interval class
 
         :param interval_input: user-provided string input
                representing integer interval
@@ -109,7 +105,7 @@ class Interval:
 
     @staticmethod
     def _validate_input(user_input: str):
-        """Validate user input is a string
+        """Validate user input is a string.
 
         :param user_input: user's input to call to Interval constructor
         :return: raises TypeError if invalid, otherwise continues construction
@@ -120,9 +116,9 @@ class Interval:
             raise TypeError('Interval must be a string.')
 
     def _parse_interval(self) -> (List[str], List[int]):
-        """Given user input is valid, parse it for the interval itself
+        """Given user input is valid, parse it for the interval itself.
 
-        :return: (gropuings, range) components of our Interval object
+        :return: (groupings, range) components of our Interval object
         """
 
         # Parse input string. This expression handles:
@@ -171,7 +167,7 @@ class Interval:
             raise ParsingException(self.input_string)
 
     def _determine_interval_type(self) -> str:
-        """Identify what type of groupings our new Interval is dealing with
+        """Identify what type of groupings our new Interval is dealing with.
 
         :return: description of our interval's grouping types
         """
@@ -203,7 +199,7 @@ class Interval:
         return interval_type
 
     def _validate_range(self, from_to: List[int]):
-        """Determine whether our new Interval's range is valid
+        """Determine whether our new Interval's range is valid.
 
         :param from_to: length 2 list containing Interval's proposed
                         lower and upper values
@@ -234,9 +230,7 @@ class Interval:
                 raise RangeException(start, end)
 
     def range(self):
-        """Provide a way to iterate over an Interval
-
-        Iterate over the defined Interval instance's range.
+        """Provide a way to iterate over an Interval's values.
 
         :return: Python's builtin range() reflected to represent Interval's groupings
         """
@@ -429,7 +423,8 @@ def merge_overlapping(intervals: List[Interval]) -> List[Interval]:
         # Update previous length to current length, then update current length.
         intervals_length_prev, intervals_length = intervals_length, len(intervals)
 
-        # Perform resets to :intervals_offset and :successful; increment :outer_iterations.
+        # Perform resets to :intervals_offset and :successful;
+        # flag that we've completed one iteration.
         intervals_offset, successful, one_iteration = intervals[1:], [], True
 
     return intervals

@@ -99,7 +99,7 @@ def create_intervals(components: List[str], separated=True) -> List[Interval]:
 
 
 def interactive_input(intervals: List[Interval]):
-    """Read-eval-response loop for interactive insertion into :intervals
+    """Read-eval-response loop for interactive insertion into :intervals.
 
     :param intervals: list of Interval objects to be inserted into
     :return: never-ending; if user enters a common 'quit' symbol they will exit
