@@ -14,7 +14,7 @@ class ParsingException(IntervalError):
 
     def __str__(self):
         return "Interval '{}' was improperly parsed -- " \
-               "make sure it's of the form [int, int], e.g. (0, 10), [1, 12), (1, 3]".format(self.interval)
+               "make sure it's of the form [int, int], e.g. (0, 10), [-1, 12), (1, 3]".format(self.interval)
 
 
 class GroupingException(IntervalError):
@@ -58,7 +58,7 @@ class DisjointIntervalException(IntervalError):
 
 
 class UserInputException(IntervalError):
-    """Raised when a user's initial input to main() is not a valid list of intervals"""
+    """Raised when a user's initial input to main() is not a valid list of intervals."""
     def __init__(self, components):
         self.components = components
 
@@ -122,21 +122,21 @@ class Interval:
         """
 
         # Parse input string. This expression handles:
-        # \s*        <ignored> any leading whitespace
-        # ([\[\(])   1. a single leading '[' or '('
-        # \s*        <ignored> any internal whitespace
-        # [-]?       2. a single dash (unary minus operator)
-        # \d+        3. one or more digits (start of interval)
-        # \s*        <ignored> any internal whitespace
-        # (,)        4. a single comma
-        # \s*        <ignored> some more whitespace
-        # ([-]?\d+)  5. (2) and (3), this time representing end of interval
-        # \s*        <ignored> any internal whitespace
-        # ([\]\)])   6. (1), this time a closing grouping symbol
-        # \s*        <ignored> any trailing whitespace
+        # \s*         <ignored> any leading whitespace
+        # ([\[\(])    1. a single leading '[' or '('
+        # \s*         <ignored> any internal whitespace
+        # [-+]?       2. a single negation operator or plus symbol
+        # \d+         3. one or more digits (start of interval)
+        # \s*         <ignored> any internal whitespace
+        # (,)         4. a single comma
+        # \s*         <ignored> some more whitespace
+        # ([-+]?\d+)  5. (2) and (3), this time representing end of interval
+        # \s*         <ignored> any internal whitespace
+        # ([\]\)])    6. (1), this time a closing grouping symbol
+        # \s*         <ignored> any trailing whitespace
         # Note: escaping the parentheses ('\(', '\)') is not required, but
         #       I prefer to do so. Explicit is better than implicit, etc.
-        split_string = re.split(r'^\s*([\[\(])\s*([-]?\d+)\s*(,)\s*([-]?\d+)\s*([\]\)])\s*$', self.input_string)
+        split_string = re.split(r'^\s*([\[\(])\s*([-+]?\d+)\s*(,)\s*([-+]?\d+)\s*([\]\)])\s*$', self.input_string)
 
         # Omit the first and last entries (they're just '') because I'm
         # evidently not very good at capturing regular expressions.
@@ -344,8 +344,8 @@ def union(interval_1: Interval, interval_2: Interval) -> Interval:
     """
 
     # Establish union's lower and upper bounds and groupings.
-    lower_interval = interval_2 if interval_1.normalized_lower > interval_2.normalized_lower else interval_1
-    upper_interval = interval_2 if interval_1.normalized_upper < interval_2.normalized_upper else interval_1
+    lower_interval = interval_2 if interval_2.normalized_lower < interval_1.normalized_lower else interval_1
+    upper_interval = interval_2 if interval_2.normalized_upper > interval_1.normalized_upper else interval_1
 
     # Create and return an Interval with our unified interval groupings and values.
     return Interval('{0}{1}, {2}{3}'.format(lower_interval.opening, lower_interval.lower,
@@ -363,7 +363,9 @@ def merge_overlapping(intervals: List[Interval]) -> List[Interval]:
     if len(intervals) in [0, 1]:
         return intervals
 
-    # Sort input list of Intervals
+    # Sort input list of Intervals. Also create deep copy of original
+    # list, but offset by first element. This copy will allow us to simulate
+    # a pair-wise iteration over the Intervals in :intervals.
     intervals = sorted(intervals)
     intervals_offset = intervals[1:]
 

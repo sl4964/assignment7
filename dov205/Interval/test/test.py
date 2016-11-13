@@ -16,12 +16,12 @@ class IntervalTest(unittest.TestCase):
 
         # Initialize list of values we would expect to be valid
         valid = ['[0, 10]', '[0, 10)', '(0, 10]', '(0, 10)',        # "Nice" inputs
-                 '[0, 1]', '[0, 1)', '(0, 1]',
-                 '[-1, 1]', '[-1, 1)', '(-1, 1]', '(-1, 1)',        # Start negative
+                 '[0, 1]', '[0, 1)', '(0, 1]', '[0, +1]',
+                 '[-1, 1]', '[-1, 1)', '(-1, 1]', '(-1, +1)',        # Start negative
                  '[-3, -1]', '[-3, -1)', '(-3, -1]', '(-3, -1)',    # Start, end negative
-                 '[0,10]', ' [0,10]', ' [ 0,10]', ' [ 0 ,10]',      # Whitespace abuse
-                 ' [ 0 , 10]', ' [ 0 , 10 ]', ' [ 0 , 10 ] ',
-                 '[00, 10]',  '[-03, -00]', '[0, 000010]']          # Leading 0's
+                 '[0,10]', ' [0,10]', ' [ 0,10]', ' [ +0 ,10]',      # Whitespace abuse
+                 ' [ +0 , 10]', ' [ 0 , 10 ]', ' [ 0 , 10 ] ',
+                 '[00, 10]',  '[-03, -00]', '[0, +000010]']          # Leading 0's
 
         # Create valid Interval objects for each string in our :valid string list.
         intervals = [Interval(candidate) for candidate in valid]
@@ -31,11 +31,12 @@ class IntervalTest(unittest.TestCase):
         self.assertEqual(len(valid), len(intervals), 'Error: invalid interval input in :valid list.')
 
     def test_invalid_parse(self):
-        """Test the rejection of invalid inputs to Interval constructor"""
+        """Test the rejection of invalid inputs to Interval constructor."""
 
         # Define intervals that we would expect to raise a ParsingException
         invalid = ['', '[', ']', '[]', '(', ')', '()', '[,]',
-                   '[4.0, 9.0]', '[1.1]', '[3, [4, 9]]']
+                   '[4.0, 9.0]', '[1.1]', '[3, [4, 9]]', '[4i, 0]',
+                   ]
 
         # Container for any valid intervals
         intervals = []
@@ -79,7 +80,7 @@ class IntervalTest(unittest.TestCase):
         self.assertNotEqual(ne_3, ne_4, not_equal_error)
 
     def test_valid_merge_overlapping(self):
-        """Unit test valid merging of overlapping intervals"""
+        """Unit test valid merging of overlapping intervals."""
 
         # Initialize intervals that are merge-able, join into a list.
         t_1, t_2 = Interval('[0, 1]'), Interval('[2, 3]')
@@ -95,7 +96,7 @@ class IntervalTest(unittest.TestCase):
         self.assertEqual(result, expected_result, 'Error: merge overlapping returned invalid result.')
 
     def test_provided_merge_overlapping(self):
-        """Unit test valid inputs based on example assignment inputs"""
+        """Unit test valid inputs based on example assignment inputs."""
 
         # (3) merge_overlapping()
 
@@ -111,7 +112,7 @@ class IntervalTest(unittest.TestCase):
         self.assertEqual(result, expected_result, 'Error: merge_overlapping() is incorrect on sample input.')
 
     def test_provided_insert(self):
-        """Unit test valid inputs based on example assignment inputs"""
+        """Unit test valid inputs based on example assignment inputs."""
 
         # (4) insert()
 
@@ -145,6 +146,7 @@ class IntervalTest(unittest.TestCase):
                              'Error: insert_into() is incorrect on sample input.')
 
     def test_provided_interactive_input(self):
+        """Unit test valid sequence of insertions based on example assignment inputs."""
 
         # (5) interactive input (main() in assignment7.py)
 
@@ -188,6 +190,7 @@ class IntervalTest(unittest.TestCase):
 
         # If everything's gone right, :intervals should match :expected_intervals.
         self.assertEqual(intervals, expected_intervals, error)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -41,7 +41,7 @@ def validate_even_list(components: List[str]):
     :return: raises UserInputException if list is not even, else continues program
     """
 
-    # One-off function for determining length evenness.
+    # One-off boolean for determining length evenness.
     even_length = len(components) % 2 == 0
 
     # If our components list is not of even length,
@@ -110,9 +110,9 @@ def interactive_input(intervals: List[Interval]):
     """
 
     # While our user has not asked to exit, keep receiving input.
-    response = input('Interval: ')
+    response = input('Interval: ').lower()
 
-    while response.lower() not in ['q', 'quit', 'exit']:
+    while response not in ['q', 'quit', 'exit']:
 
         try:
             # Attempt to coerce this new input as an Interval object.
