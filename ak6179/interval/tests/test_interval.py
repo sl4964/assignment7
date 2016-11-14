@@ -9,6 +9,7 @@ from ..interval import *
 
 class IntervalTest(unittest.TestCase):
     def test_interval_constructor(self):
+        """Unit Tests for Interval class."""
         # test valid input interval strings
         interval1 = Interval("[1,4]")
         self.assertEqual(str(interval1), "[1,4]")
@@ -38,6 +39,7 @@ class IntervalTest(unittest.TestCase):
             _ = Interval("(101,102)")
 
     def test_merge_intervals(self):
+        """Unit tests for merge_intervals function."""
         # testing closed intervals
         interval1 = Interval("[3,5]")
         interval2 = Interval("[4,10]")
@@ -77,6 +79,7 @@ class IntervalTest(unittest.TestCase):
             _ = merge_intervals(interval_e, interval_f)
 
     def test_get_intervals_list(self):
+        """Unit tests for get_intervals_list function."""
         # testing the get_intervals list method
         interval_list = get_intervals_list("[1,5], [2,6), (8,10], [8,18]")
         self.assertEqual(str(interval_list), "[[1,5], [2,6), (8,10], [8,18]]")
@@ -87,7 +90,12 @@ class IntervalTest(unittest.TestCase):
         interval_list = get_intervals_list("[1,2], (3,5), [6,7), (8,10], [12,20]")
         self.assertEqual(str(interval_list), "[[1,2], (3,5), [6,7), (8,10], [12,20]]")
 
+        # using a different separator.
+        interval_list = get_intervals_list("[1,2]#(3,5)#[6,7)#(8,10]#[12,20]", sep="#")
+        self.assertEqual(str(interval_list), "[[1,2], (3,5), [6,7), (8,10], [12,20]]")
+
     def test_merge_overlapping(self):
+        """Unit tests for merge_overlapping function."""
         # testing when overlapping intervals are merged
         interval_list = get_intervals_list("[1,5], [2,6), (8,10], [8,18]")
         merged_list = merge_overlapping(interval_list)
@@ -111,7 +119,7 @@ class IntervalTest(unittest.TestCase):
         self.assertEqual(str(merged_list),"[[50,100], [102,500), [505,800]]")
 
     def test_insert(self):
-        # testing insert function
+        """Unit tests for insert function."""
         list1 = get_intervals_list("[-10,-7], (-4,1], [3,6), (8,12), [15,23]")
         updated_list = insert(list1, Interval("[4,8]"))
         self.assertEqual(str(updated_list), "[[-10,-7], (-4,1], [3,12), [15,23]]")

@@ -2,7 +2,8 @@ from . import interval_utils
 
 
 class Interval(object):
-    """Interval class for integers"""
+    """Interval class for integers
+    Throws exception in the constructor if the interval string input is invalid."""
 
     @property
     def opening_bracket(self):
@@ -22,6 +23,7 @@ class Interval(object):
 
     @staticmethod
     def _validate_interval_string(s):
+        """Checks whether the interval string is a valid interval."""
         interval_utils.check_brackets(s)
         interval_utils.check_interval_limits(s)
 
@@ -39,6 +41,9 @@ class Interval(object):
         self._set_interval_limit(s)
 
     def get_limits(self):
+        """Returns the limits of the interval.
+        This method adjusts for the fact that whether the
+        interval is an opening interval or a closing interval."""
         left = self.opening_limit
         if self.opening_bracket == "(":
             left += 1
@@ -58,7 +63,8 @@ class Interval(object):
 
     def __init__(self, interval_string):
         """Constructor for creating Interval from a string.
-        Checks whether the string input of the interval is a valid represetation or not.
+        Checks whether the string input of the interval is a valid representation or not.
+        Creates an interval object if the input interval string is a valid representation.
         """
         clean_string = interval_utils.get_clean_string(interval_string)
         self._validate_interval_string(clean_string)
@@ -66,6 +72,9 @@ class Interval(object):
 
 
 def intervals_overlap(int1, int2):
+    """Checks whether two intervals are overlapping.
+    Note that this function returns False if the intervals are
+    only adjacent."""
     left1, right1 = int1.get_limits()
     left2, right2 = int2.get_limits()
     if left1 <= right2 and left2 <= right1:
@@ -75,6 +84,7 @@ def intervals_overlap(int1, int2):
 
 
 def intervals_adjacent(int1, int2):
+    """Checks whether two intervals are adjacent or not."""
     left1, right1 = int1.get_limits()
     left2, right2 = int2.get_limits()
     if (not intervals_overlap(int1, int2)) and (left1 == right2 + 1 or left2 == right1 + 1):
@@ -84,11 +94,12 @@ def intervals_adjacent(int1, int2):
 
 
 def merge_intervals(int1, int2):
-    # TODO: split this method into more functions
-    # TODO: check if int1 and int2 are intervals
+    """Merges two overlapping or adjacent intervals. Throws
+    an exception if the intervals are non-overlapping or non-adjacent."""
     if intervals_overlap(int1, int2) or intervals_adjacent(int1, int2):
         left1, right1 = int1.get_limits()
         left2, right2 = int2.get_limits()
+        # Setting the limits of new merged interval
         if left1 <= left2:
             opening_bracket = int1.opening_bracket
             opening_limit = int1.opening_limit
@@ -109,35 +120,44 @@ def merge_intervals(int1, int2):
 
 
 def merge_overlapping(intervals):
-    # TODO: check if intervals is a list of intervals
-    initial_size = len(intervals)
-    if initial_size == 0:
+    """Takes input a list of intervals and keeps on merging the intervals
+    until intervals can no longer be merged. Always returns a sorted list
+    of intervals."""
+    if len(intervals) == 0:
         return intervals
+    # Sort the intervals.
     temp_list = sorted(intervals)
     new_list = list()
     new_list.append(temp_list[0])
     for it in temp_list[1:]:
         prev_interval = new_list[-1]
+        # Check if it interval can be merged with the last interval in the sorted list.
         if intervals_overlap(prev_interval, it) or intervals_adjacent(prev_interval, it):
+            # Merge the intervals
             new_interval = merge_intervals(prev_interval, it)
+            # Update the last interval in the list.
             new_list[-1] = new_interval
         else:
+            # it interval can't be merged with the prev_interval hence insert it into the list.
             new_list.append(it)
-    new_size = len(new_list)
-    if new_size < initial_size:
-        return merge_overlapping(new_list)
-    else:
-        return new_list
+    return new_list
 
 
 def insert(intervals, newint):
-    # TODO: check if intervals is a list of intervals and newint is an interval
+    """Insert an interval into a list of intervals.
+    Returns the sorted list of intervals after insertion."""
     new_intervals = list(intervals)
     new_intervals.append(newint)
     return merge_overlapping(new_intervals)
 
 
-def get_intervals_list(input_string):
-    # TODO: make this function more robust to handle the comma separator properly
-    intervals_list = [Interval(interval_string) for interval_string in input_string.split(", ")]
+def get_intervals_list(input_string, sep=", "):
+    """Retuns a list of intervals after splitting the input string by sep.
+    Assumes that the left and right limit of interval are separated by ','.
+    If the separator given is ',' this function raises an exception because
+    the limit of the intervals have an ambiguous interpretation.
+    """
+    if sep == ",":
+        raise ValueError("Please use a separator other than ',' for separating the elements of the list")
+    intervals_list = [Interval(interval_string) for interval_string in input_string.split(sep)]
     return intervals_list
