@@ -3,7 +3,8 @@ from . import interval_utils
 
 class Interval(object):
     """Interval class for integers
-    Throws exception in the constructor if the interval string input is invalid."""
+    Throws exception in the constructor if the interval string input is invalid.
+    """
 
     @property
     def opening_bracket(self):
@@ -43,7 +44,8 @@ class Interval(object):
     def get_limits(self):
         """Returns the limits of the interval.
         This method adjusts for the fact that whether the
-        interval is an opening interval or a closing interval."""
+        interval is an opening interval or a closing interval.
+        """
         left = self.opening_limit
         if self.opening_bracket == "(":
             left += 1
@@ -74,7 +76,8 @@ class Interval(object):
 def intervals_overlap(int1, int2):
     """Checks whether two intervals are overlapping.
     Note that this function returns False if the intervals are
-    only adjacent."""
+    only adjacent.
+    """
     left1, right1 = int1.get_limits()
     left2, right2 = int2.get_limits()
     if left1 <= right2 and left2 <= right1:
@@ -95,7 +98,8 @@ def intervals_adjacent(int1, int2):
 
 def merge_intervals(int1, int2):
     """Merges two overlapping or adjacent intervals. Throws
-    an exception if the intervals are non-overlapping or non-adjacent."""
+    an exception if the intervals are non-overlapping or non-adjacent.
+    """
     if intervals_overlap(int1, int2) or intervals_adjacent(int1, int2):
         left1, right1 = int1.get_limits()
         left2, right2 = int2.get_limits()
@@ -122,7 +126,8 @@ def merge_intervals(int1, int2):
 def merge_overlapping(intervals):
     """Takes input a list of intervals and keeps on merging the intervals
     until intervals can no longer be merged. Always returns a sorted list
-    of intervals."""
+    of intervals.
+    """
     if len(intervals) == 0:
         return intervals
     # Sort the intervals.
@@ -145,7 +150,8 @@ def merge_overlapping(intervals):
 
 def insert(intervals, newint):
     """Insert an interval into a list of intervals.
-    Returns the sorted list of intervals after insertion."""
+    Returns the sorted list of intervals after insertion.
+    """
     new_intervals = list(intervals)
     new_intervals.append(newint)
     return merge_overlapping(new_intervals)

@@ -12,7 +12,8 @@ def get_clean_string(s):
 
 def check_brackets(s):
     """Checks whether the brackets on both the sides of interval string are valid.
-    (,),[,] are considered as valid brackets."""
+    (,),[,] are considered as valid brackets.
+    """
     if not (s.startswith("(") or s.startswith("[")):
         raise ValueError("Interval string \"%s\" does not start with a valid bracket." % s)
     if not (s.endswith(")") or s.endswith("]")):
@@ -29,7 +30,8 @@ def is_integer(s):
 
 def check_interval_limits(s):
     """Checks whether the strings representing the limits of the interval are valid. Also checks if
-    the left_limit <= right_limit after accounting for the open and closed brackets, parentheses."""
+    the left_limit <= right_limit after accounting for the open and closed brackets, parentheses.
+    """
     if len(s) < 3:
         raise ValueError("There are no limits specified in the interval string \"%s\"." % s)
     bounds = s[1:-1].split(",")
