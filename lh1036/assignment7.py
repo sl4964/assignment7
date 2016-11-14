@@ -1,4 +1,4 @@
-from interval import *
+from interval.interval import *
 
 class QuitError(Exception):
     pass

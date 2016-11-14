@@ -1,5 +1,5 @@
 import unittest
-from interval import *
+from interval.interval import *
 
 class intervalTest(unittest.TestCase):
     '''
@@ -22,7 +22,7 @@ class intervalTest(unittest.TestCase):
     
     def testComparisonVals(self):
         '''
-        Test comparisonValues() returns tuple of normalized lower, normalized upper, original lower, original upper bound vals
+        Test comparisonValues returns tuple of normalized lower, normalized upper, original lower, original upper bound
         '''
         self.assertEqual(interval("(0,3)").comparisonValues(), (1, 2, 0, 3))
         self.assertEqual(interval("[0,3]").comparisonValues(), (0, 3, 0, 3))
@@ -42,9 +42,9 @@ class intervalTest(unittest.TestCase):
         self.assertLess(interval("(-1,3)"), interval("[0,3]"))
 
 class containsTests(unittest.TestCase):
-'''
-Tests for contains method from interval class, grouped here for clarity
-'''
+    '''
+    Tests for contains method from interval class, grouped here for clarity
+    '''
     
     def testSelf(self):
         '''
@@ -85,9 +85,9 @@ Tests for contains method from interval class, grouped here for clarity
         self.assertTrue(interval("(3,5]").intersects(interval("[5,7]")))
 
 class parseListTests(unittest.TestCase):
-'''
-Tests for parseLists classmethod from interval, grouped for clarity
-'''
+    '''
+    Tests for parseLists classmethod from interval, grouped for clarity
+    '''
     
     def testValidList(self):
         '''
@@ -109,9 +109,9 @@ Tests for parseLists classmethod from interval, grouped for clarity
             interval.parseList("(1,1), (2,5)")
 
 class MergeIntervalsTests(unittest.TestCase):
-'''
-Tests for mergeIntervals method from interval class, grouped here for clarity
-'''
+    '''
+    Tests for mergeIntervals method from interval class, grouped here for clarity
+    '''
     
     def testDisjoint(self):
         '''
@@ -139,9 +139,9 @@ Tests for mergeIntervals method from interval class, grouped here for clarity
         self.assertEqual(mergeIntervals(interval("[3,5]"), interval("[4,8)")), interval("[3,7]"))
 
 class IntervalMergeOverlappingTests(unittest.TestCase):
-'''
-Tests for mergeOverlapping method from interval class, grouped for clarity
-'''
+    '''
+    Tests for mergeOverlapping method from interval class, grouped for clarity
+    '''
     
     def testEmpty(self):
         '''
@@ -199,9 +199,10 @@ Tests for mergeOverlapping method from interval class, grouped for clarity
         self.assertEqual(mergeOverlapping(intervals), [interval("[1,5]"), interval("[8,18]")]) 
 
 class InsertTests(unittest.TestCase):
-'''
-Tests for insert method method from interval class, grouped for clarity
-''' 
+    '''
+    Tests for insert method method from interval class, grouped for clarity
+    ''' 
+    
     def testEmptyList(self):
         '''
         Test that insert works on empty list
