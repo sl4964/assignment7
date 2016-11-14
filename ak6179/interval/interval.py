@@ -131,7 +131,7 @@ def merge_overlapping(intervals):
 
 
 def insert(intervals, newint):
-    # TODO: check if intervals is a list of intervals and newint is an intervals
+    # TODO: check if intervals is a list of intervals and newint is an interval
     new_intervals = list(intervals)
     new_intervals.append(newint)
     return merge_overlapping(new_intervals)
