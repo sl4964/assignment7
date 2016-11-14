@@ -1,8 +1,9 @@
 class interval():
-    #lower <= upper if bo inclusive
-    #lower < upper if one inclu one exclu
-    #lower < upper -1 if both exclu 
+    #lower <= upper if both inclusive
+    #lower < upper if one inclusive one exclusive
+    #lower < upper -1 if both exclusive 
     def __init__(self,interv):
+        #Stores the attributes as: lower,front,upper,end,interv.
         try:
             first, second = interv.split(',')
             self.lower = int(first[1:])
@@ -109,7 +110,7 @@ def mergeIntervals(int1,int2):
         elif(end1 != end2):
             return("{}{},{}]".format(front2,lower2,upper2))
     if(lower1==lower2):
-         #if upper2 < upper1 i.e. int2 =(1,3) int1 =(2,4)
+        #if upper2 < upper1 i.e. int2 =(1,3) int1 =(2,4)
         if(upper2<upper1):
             if(front1 == front2):
                 return(int1.interv)
@@ -130,8 +131,11 @@ def mergeIntervals(int1,int2):
     
     
 def mergeOverlapping(intervals):
+    #intervals is a string that user inputs
     splits = intervals.split(',')
+    #element that take in user input and concentrate to intervals
     allelement = []
+    #get in 0,1 2,3 ....
     ran = range(int(len(splits)/2))
     splitran = list(map(lambda x: 2*x, ran))
     for i in splitran:
