@@ -6,6 +6,7 @@ Created on Nov 14, 2016
 import interval_class as i
 
 def Merge_intervals(int1, int2):
+    '''Merge two intervals if adjacent or overlapping.'''
     
     assert isinstance(int1, i.Interval), 'first input is not an Interval'
     assert isinstance(int2, i.Interval), 'second input is not an Interval'
@@ -41,6 +42,9 @@ def Merge_intervals(int1, int2):
     return merged_interval
 
 def mergeOverlapping(intervals_input):
+    '''Take list of intervals, merge until there are no intervals left to merge. Return merged intervals.'''
+    #May return the original input if none of the intervals merge
+    #May return one interval if the intervals can be arranged such that they're all overlapping or adjacent
     
     intervals = intervals_input #copy of input to avoid side effecting
     
@@ -58,21 +62,24 @@ def mergeOverlapping(intervals_input):
 
     pair = 0
 
-    while pair < (len(pairs)): #as long as we have one more pair to try
+    while pair < (len(pairs)): #as long as there's another pair to try
         try:
             merged_interval = (Merge_intervals(pairs[pair][0], pairs[pair][1])) #merge        
-            intervals.pop(intervals.index(pairs[pair][0])) #get rid of the interval that was merged
-            intervals.pop(intervals.index(pairs[pair][1])) #get rid of the other interval that was merged
+            intervals.pop(intervals.index(pairs[pair][0])) #remove the first interval that was merged
+            intervals.pop(intervals.index(pairs[pair][1])) #remove the other interval that was merged
             intervals.append(merged_interval) #add the merged interval      
-            pairs = find_possible_pairs(intervals)
-            pair = 0 #if you found a merge, we want to try again starting at pair 0
+            pairs = find_possible_pairs(intervals) #find new possible pairs given new list of intervals
+            pair = 0 #since possible pairs are different, start over at pair 0
         except Exception:
             pass
-            pair = pair + 1 #then advance to the next pair
+            pair = pair + 1 #advance to the next pair
     
     return intervals
 
 def insert(intervals, newint):
+    '''
+    Insert one interval into a list of intervals. Merge if possible.
+    '''
     starting_intervals = intervals
     try:
         starting_intervals.extend(newint)
@@ -82,9 +89,13 @@ def insert(intervals, newint):
     merged = sorted(merged, key=lambda interval: interval.lower)
     return merged
 
-#helper functions for the game itself
+#helper functions for the parse_input function
 
 def recombine_split_input(split_input):
+    '''
+    Take string of intervals split by the start of each interval such that the start is detached from the interval.
+    Recombine the start of the interval with the interval.
+    '''
     
     recombined_input = split_input
     
@@ -94,6 +105,10 @@ def recombine_split_input(split_input):
     return recombined_input
 
 def clean_after_interval(split_input):
+    '''
+    Take string of intervals split by the start of each interval.
+    Remove unnecessary characters after the end of each interval.
+    '''
     condensed_input = split_input
     for i in range(0, len(condensed_input) - 1):
         if ']' in condensed_input[i]:
@@ -102,13 +117,17 @@ def clean_after_interval(split_input):
             condensed_input[i] = condensed_input[i][:condensed_input[i].find(')')+1]
     return condensed_input
 
-def parse_interval_input(interval_input): #put this change in eclipse
+def parse_interval_input(interval_input):
+    '''
+    Take unparsed string representing a series of intervals.
+    Parse these intervals.
+    '''
     import re
     if interval_input == '': #raise error if empty string
         raise ValueError('empty string')
     else:
         split_input = re.split('(\[|\()', interval_input)
-        del split_input[0]
+        del split_input[0] #The split causes a blank string in first position of list. Delete this.
         if split_input == []: #raise error if no beginnings found
             raise ValueError('no [ or ( to identify beginning of interval')
         else:
@@ -118,7 +137,7 @@ def parse_interval_input(interval_input): #put this change in eclipse
             return split_input
 
 def Make_intervals(split_input):
-    
+    '''Takes a list of strings, each pertaining to one interval and make a corresponding list of Interval objects'''
     intervals = []
     
     for interval in split_input:

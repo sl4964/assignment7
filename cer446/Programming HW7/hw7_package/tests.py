@@ -3,13 +3,14 @@ Created on Nov 14, 2016
 
 @author: Caroline
 '''
-#got the test to work but it failed
 
 import unittest
 import interval_class as i
 import functions as m
 
 #test 0: Interval class
+
+#is there a better way to test the Interval class?
 
 class Interval_test_case(unittest.TestCase):
     def setUp(self):
@@ -25,6 +26,10 @@ class Interval_test_case(unittest.TestCase):
 class Test_interval_creation(Interval_test_case):
     def test_interval_creation(self):
         self.assertEqual(i.Interval(self.input1).interval_list, self.output1)
+        self.assertEqual(i.Interval(self.input1).lower, -1)
+        self.assertEqual(i.Interval(self.input1).lower_inclusive, -1)
+        self.assertEqual(i.Interval(self.input1).upper, 4)
+        self.assertEqual(i.Interval(self.input1).upper_inclusive, 3)
 
 #test 1: merge intervals
 
@@ -34,16 +39,21 @@ class Merge_intervals_test_case(unittest.TestCase):
         self.merged_interval = i.Interval('[-1,10)')
         self.first_interval = i.Interval('[-1,5]')
         self.second_interval = i.Interval('(4,10)')
+        self.third_interval = i.Interval('[8,10]')
         
     def tearDown(self):
         print('In merge interval tearDown')
         del self.merged_interval
         del self.first_interval
         del self.second_interval
+        del self.third_interval
         
 class Test_Merge_Intervals(Merge_intervals_test_case):
     def test_merge(self):
         self.assertEqual(vars(m.Merge_intervals(self.first_interval,self.second_interval)), vars(self.merged_interval), 'Merged interval does not match intended result')
+    
+    def test_exception(self):
+        self.failUnlessRaises(Exception, m.Merge_intervals, self.first_interval, self.third_interval)
 
 #test 2: merge overlapping
 
