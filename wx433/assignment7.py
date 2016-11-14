@@ -1,7 +1,18 @@
 from interval import Interval
 import sys
 
-ReadMe = "Please read me"
+ReadMe = 'Instructions:\n\
+1. square brackets “[ ]” for inclusive bounds.\n\
+2. parenthesis “( )” for exclusive bounds.\n\
+3. First number represent lower bound,.\n\
+4. second number is the upper bound.\n\
+Examples: \n\
+“ [1,4] ” represents the numbers 1 through 4\n\
+“ (2,5] ” represents the numbers 3 through 5\n\
+“ [4,8) ” represents the numbers 4 through 7\n\
+“ (3,9) ” represents the numbers 4 through 8.\n'
+
+
 print(ReadMe)
 
 
