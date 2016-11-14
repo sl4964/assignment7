@@ -18,14 +18,16 @@ def main():
         try:
             inputlist = input("List of intervals? ")
             if isIntervalListValid(inputlist):
-                break
-            else:
-                raise InvalidIntervals('At least one interval is invalid!')
+            	break
+            else:	
+                raise ValueError
         except KeyboardInterrupt:
             sys.exit(0)
         except EOFError:
-            sys.exit(0)
-            
+      	    sys.exit(0)
+        except ValueError:
+            print("Invalid Interval list!")
+    
     #split the input list of intervals by regular expression        
     inputlist = inputlist.replace(' ', '')
     strlist = re.findall(r'[\[\(]+-*[0-9]+\,+-*[0-9]+[\)\]]+', inputlist)
