@@ -161,9 +161,13 @@ def get_intervals_list(input_string, sep=", "):
     """Retuns a list of intervals after splitting the input string by sep.
     Assumes that the left and right limit of interval are separated by ','.
     If the separator given is ',' this function raises an exception because
-    the limit of the intervals have an ambiguous interpretation.
+    the limit of the intervals have an ambiguous interpretation. In case the
+    input string is empty this method returns an empty list.
     """
     if sep == ",":
         raise ValueError("Please use a separator other than ',' for separating the elements of the list")
-    intervals_list = [Interval(interval_string) for interval_string in input_string.split(sep)]
+    if input_string.strip() == "":
+        intervals_list = []
+    else:
+        intervals_list = [Interval(interval_string) for interval_string in input_string.split(sep)]
     return intervals_list

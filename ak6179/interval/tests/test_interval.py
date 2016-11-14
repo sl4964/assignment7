@@ -94,6 +94,10 @@ class IntervalTest(unittest.TestCase):
         interval_list = get_intervals_list("[1,2]#(3,5)#[6,7)#(8,10]#[12,20]", sep="#")
         self.assertEqual(str(interval_list), "[[1,2], (3,5), [6,7), (8,10], [12,20]]")
 
+        # testing for empty list
+        interval_list = get_intervals_list("")
+        self.assertEqual(interval_list, [])
+
     def test_merge_overlapping(self):
         """Unit tests for merge_overlapping function."""
         # testing when overlapping intervals are merged
