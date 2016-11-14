@@ -6,7 +6,7 @@ Created on Nov 14, 2016
 
 import sys
 import signal
-from Interval import *
+from Interval.Interval import *
 
 def main():
     
