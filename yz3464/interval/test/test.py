@@ -3,20 +3,16 @@ Created on Nov 13, 2016
 
 @author: twff
 '''
- '''
-    Run the test in the project root directory from console by:
-    $ python -m unittest discover
-    '''
-from Interval import *
+
+from interval import *
 import unittest
 
+#$ python -m unittest discover
 class IntervalTest(unittest.TestCase):
 
-    def test_default_ctor(self):
+    def test_class(self):
         i = Interval(3, 4)  # success
         j = Interval(4, 4)  
-        with self.assertRaises(ValueError):
-            i = Interval(4, 3)
             
     def test_eq(self):
         self.assertEqual(Interval(1, 5), Interval(1, 5))
@@ -24,19 +20,22 @@ class IntervalTest(unittest.TestCase):
 
     def test_stringRep(self):
         #correct input
-        i = Interval.stringRep('[1,010]')
-        self.assertEqual(i._left, 1)
-        self.assertEqual(i._right, 10)
         i = Interval.stringRep('[-5,-3]')
-        self.assertEqual(i._left, -5)
-        self.assertEqual(i._right, -3)
-        self.assertEqual(Interval.stringRep('(1,010]')._left, 2)
-        self.assertEqual(interval.stringRepg('[-5,-3)')._right, -2)
+        self.assertEqual(i._lower, -5)
+        self.assertEqual(i._upper, -3)
+        self.assertEqual(Interval.stringRep('[-5,-3)')._upper, -4)
+        i = Interval.stringRep('[1,010]')
+        self.assertEqual(i._lower, 1)
+        self.assertEqual(i._upper, 10)
+        self.assertEqual(Interval.stringRep('(1,010]')._lower, 2 )
+        i = Interval.stringRep('(010,100)')
+        self.assertEqual(i._lower, 11)
+        self.assertEqual(i._upper, 99)
         
         # Errors
         def assertValueError(s):
             with self.assertRaises(ValueError):
-                Interval.fromString(s)
+                Interval.stringRep(s)
         assertValueError('')
         assertValueError('(1,2)')
         assertValueError('[0]')
@@ -50,6 +49,7 @@ class IntervalTest(unittest.TestCase):
         assertValueError('[a,c]')
         assertValueError('   (  01 0  ,  101 0 ]')
         assertValueError('[,]')
+        
 
     def test_mergeIntervals(self):
         l1 = Interval(1, 3)
@@ -66,9 +66,10 @@ class IntervalTest(unittest.TestCase):
 
     def test_mergeOverlapping(self):
         testset = [Interval(1, 3), Interval(1, 4), Interval(-10, 0), Interval(-5, -1)]
-        target = [Interval(1, 3), Interval(-10, 0)]
-        merged = mergeOverlapping(raw)
-        self.assertEqual(target, merged)
+        target = [Interval(-10, 4)]
+        merged = mergeOverlapping(testset)
+        for i, j in zip(target, merged):
+            self.assertEqual(i, j)
 
     def test_insert(self):
         intervals = [Interval(1, 3), Interval(6, 9)]
@@ -76,5 +77,6 @@ class IntervalTest(unittest.TestCase):
         target = [Interval(1, 9)]
         inserted = insert(intervals, newint)
         self.assertEqual(target, inserted)
+        
 if __name__ == '__main__':
     unittest.main()

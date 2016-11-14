@@ -1,3 +1,1 @@
-import os, sys
-sys.path.insert(0, os.path.abspath(".."))
-from Interval import *
+from interval.Interval import *
