@@ -125,14 +125,14 @@ def insert(intervals, newint):
 
 # My program starts here
 
-def interval_translator()
+def interval_translator():
     """This function takes in a list of intervals in string form from the user and then turns it into an actual list of intervals """
     
     # These are the characters that this function is allowed to use to build an interval
     white_list = "[(-0123456789)],"
 
     # Takes in the input from the user and gets it ready to be processed
-    input_string = input("List of intervals?") + ","
+    input_string = input("List of intervals? \n") + ","
     ind = 0
     intervals = []
     
@@ -151,7 +151,7 @@ def interval_translator()
             ind += 1
         else :
             intervals.append(interval(temp_string))
-        print(intervals)
+    print(intervals)
     return intervals
 
 # This try statement determines whether or not the input is valid and then prompts the user for another if not.
