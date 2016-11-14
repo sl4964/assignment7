@@ -74,7 +74,7 @@ def sort_intervals(intervals_list):
 
 def can_merge(int1, int2):
     # Will call this after the list is sorted, thus assume int1's lower is smaller than int2's
-    return (int1.highest_value >= int2.lowest_value)
+    return (int1.highest_value >= int2.lowest_value - 1)
 
 def get_can_merge_list(intervals):
     can_merge_list = []
