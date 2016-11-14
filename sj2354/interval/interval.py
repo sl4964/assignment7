@@ -1,19 +1,25 @@
 '''
 Created on Nov 14, 2016
-
+This module build up a class for intervals
 @author: sj238
 '''
 import re
 from UserError import *
 
 class interval(object):
+    '''
+    This class defines what valid intervals should be
+    This class defines errors and exception of input intervals
+    
+    '''
     def __init__(self, input_interval):
-        input_interval = input_interval.strip()
+        input_interval = input_interval.strip()#get rid of white space
+        
         if input_interval == '':
-            raise ValueError('No empty string')
+            raise ValueError('No empty string')#input cannot be empty
         if type(input_interval) is not str:
-            raise TypeError('Interval must be a string.')
-        self.lower_bound = input_interval[0]
+            raise TypeError('Interval must be a string.')#input must be string
+        self.lower_bound = input_interval[0]#Check whether the interval is inclusive or exclusive or invalid
         if self.lower_bound == '(':
             exclusive_lower = True
         elif self.lower_bound == '[':
@@ -27,10 +33,10 @@ class interval(object):
             exclusive_upper = False
         else:
             raise ValueError("Invalid upper bound")
-        comma = input_interval.index(',')
+        comma = input_interval.index(',')#split the interval by comma into two parts
         self.lower_value = int(input_interval[1:comma])
         self.upper_value = int(input_interval[comma+1:-1])
-        if self.lower_value > self.upper_value:
+        if self.lower_value > self.upper_value:#sort out intervals
             raise ValueError("Lower value cannot be bigger than upper value")
         self.lower_value + 1 if exclusive_lower else self.lower_value
         self.upper_value - 1 if exclusive_upper else self.upper_value
@@ -50,6 +56,9 @@ class interval(object):
 
 
 def Rearrange(interval1, interval2):
+    '''
+    arrange two intervals so the  one with smallest lower bound value will be on left
+    '''
     if interval1.lower_value > interval2.lower_value:
         left_interval = interval1
         right_interval = interval2
@@ -59,6 +68,10 @@ def Rearrange(interval1, interval2):
     return left_interval, right_interval
 
 def mergeIntervals(interval1, interval2):
+    '''
+    This function takes two intervals and merge them if they are
+    overlapping or adjacent, or gives exception otherwise
+    '''
     left_interval, right_interval =  Rearrange(interval1, interval2)
     if left_interval.upper_value < right_interval.lower_value - 1:
         raise ValueError('Intervals should be ovelap or adjacent')
@@ -76,6 +89,10 @@ def mergeIntervals(interval1, interval2):
         return merge_left + ',' + merge_right
 
 def mergeOverlapping(intervals):
+    '''
+    This function take one list as parameter, and it merges
+    overlapping intervals and return a list of disjoint intervals
+    '''
     if len(intervals) == 0:
         return []
     intervals = sorted(intervals, key=lambda x: interval(x).lower_value)
@@ -90,6 +107,10 @@ def mergeOverlapping(intervals):
         
         
 def insert(intervals, newint):
+    '''
+    This function take a list of intervals and an interval asparameter
+    This function insert and merge the interval into the list
+    '''
     return mergeOverlapping(intervals + [newint])
      
         
