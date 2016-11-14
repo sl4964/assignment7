@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pydev-testrun version="1.0"?><pydev-testsuite>
+<summary errors="2" failures="3" finished="true" name="Test Run: 11" tests="6" total_time="Finished in: 0.00 secs."/>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="ok" test="IntervalTest.test_default_ctor" time="0.00">
+<stdout/>
+<stderr/>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="fail" test="IntervalTest.test_eq" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 56, in test_eq
+    self.assertTrue(interval(3, 8) == interval(3, 8))
+AssertionError: False is not true
+]]></stderr>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="error" test="IntervalTest.test_fromString" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 23, in test_fromString
+    i = interval.fromString('[500,0950]')
+AttributeError: type object 'interval' has no attribute 'fromString'
+]]></stderr>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="fail" test="IntervalTest.test_insert" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 103, in test_insert
+    self.assertEqual(result, answer)
+AssertionError: interval(1, 2) != interval(1, 2)
+]]></stderr>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="fail" test="IntervalTest.test_mergeIntervals" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 69, in test_mergeIntervals
+    self.assertEqual(mergeIntervals(a, b), c)
+AssertionError: interval(3, 9) != interval(3, 9)
+]]></stderr>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="error" test="IntervalTest.test_mergeOverlapping" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 77, in test_mergeOverlapping
+    self.assertEqual(len(mergeOverlapping([])), 0)
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/interval.py", line 88, in mergeOverlapping
+    result = [intervals[0]]
+IndexError: list index out of range
+]]></stderr>
+</test>
+<launch mode="run">
+<launch_memento><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration local="true" path="bz866 test.py"/>
+]]></launch_memento>
+</launch>
+</pydev-testsuite>

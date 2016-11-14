@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pydev-testrun version="1.0"?><pydev-testsuite>
+<summary errors="0" failures="1" finished="true" name="Test Run: 29" tests="6" total_time="Finished in: 0.00 secs."/>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="ok" test="Test.test_insert" time="0.00">
+<stdout/>
+<stderr/>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="ok" test="Test.test_invalidsample" time="0.00">
+<stdout/>
+<stderr/>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="ok" test="Test.test_mergeOverlapping" time="0.00">
+<stdout/>
+<stderr/>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="ok" test="Test.test_merge_fail" time="0.00">
+<stdout/>
+<stderr/>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="ok" test="Test.test_mergeable" time="0.00">
+<stdout/>
+<stderr/>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="fail" test="Test.test_valid" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 18, in test_valid
+    self.assertEqual(int1.comma_interval, [-8,-7,-6])
+AssertionError: Lists differ: [-8, -6] != [-8, -7, -6]
+
+First differing element 1:
+-6
+-7
+
+Second list contains 1 additional elements.
+First extra element 2:
+-6
+
+- [-8, -6]
++ [-8, -7, -6]
+?      ++++
+
+]]></stderr>
+</test>
+<launch mode="run">
+<launch_memento><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration local="true" path="bz866 test.py"/>
+]]></launch_memento>
+</launch>
+</pydev-testsuite>

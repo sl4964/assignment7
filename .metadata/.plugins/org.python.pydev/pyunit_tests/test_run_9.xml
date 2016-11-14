@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pydev-testrun version="1.0"?><pydev-testsuite>
+<summary errors="1" failures="0" finished="true" name="Test Run: 9" tests="0" total_time="Finished in: 0.00 secs."/>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="error" test="test" time="0">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Downloads/Eclipse 2.app/Contents/Eclipse/plugins/org.python.pydev_5.3.1.201610311318/pysrc/_pydev_runfiles/pydev_runfiles.py", line 468, in __get_module_from_str
+    mod = __import__(modname)
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 82
+    Contact GitHub API Training Shop Blog About
+                 ^
+SyntaxError: invalid syntax
+ERROR: Module: test could not be imported (file: /Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py).
+]]></stderr>
+</test>
+<launch mode="run">
+<launch_memento><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration local="true" path="bz866 test.py"/>
+]]></launch_memento>
+</launch>
+</pydev-testsuite>

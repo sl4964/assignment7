@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pydev-testrun version="1.0"?><pydev-testsuite>
+<summary errors="0" failures="3" finished="true" name="Test Run: 30" tests="6" total_time="Finished in: 0.00 secs."/>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="fail" test="Test.test_insert" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 90, in test_insert
+    self.assertEqual(str(insert(intervals_l, newint)), str([interval("[1,2]"), interval("(3,10]"), interval("[12,16]")]))
+AssertionError: '[[1,2], (3,9], [6,7), (8,10], [12,16]]' != '[[1,2], (3,10], [12,16]]'
+- [[1,2], (3,9], [6,7), (8,10], [12,16]]
+?           --------------
++ [[1,2], (3,10], [12,16]]
+
+]]></stderr>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="ok" test="Test.test_invalidsample" time="0.00">
+<stdout/>
+<stderr/>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="fail" test="Test.test_mergeOverlapping" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 77, in test_mergeOverlapping
+    self.assertEqual(str(mergeOverlapping(interval_for_merge)), str(merged_list))
+AssertionError: '[[1,6), [2,6), [8,18], (8,10]]' != '[[1,6), [8,18]]'
+- [[1,6), [2,6), [8,18], (8,10]]
++ [[1,6), [8,18]]
+
+]]></stderr>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="ok" test="Test.test_merge_fail" time="0.00">
+<stdout/>
+<stderr/>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="ok" test="Test.test_mergeable" time="0.00">
+<stdout/>
+<stderr/>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="fail" test="Test.test_valid" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 18, in test_valid
+    self.assertEqual(int1.comma_interval, [-8,-7,-6])
+AssertionError: Lists differ: [-8, -6] != [-8, -7, -6]
+
+First differing element 1:
+-6
+-7
+
+Second list contains 1 additional elements.
+First extra element 2:
+-6
+
+- [-8, -6]
++ [-8, -7, -6]
+?      ++++
+
+]]></stderr>
+</test>
+<launch mode="run">
+<launch_memento><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration local="true" path="bz866 test.py"/>
+]]></launch_memento>
+</launch>
+</pydev-testsuite>

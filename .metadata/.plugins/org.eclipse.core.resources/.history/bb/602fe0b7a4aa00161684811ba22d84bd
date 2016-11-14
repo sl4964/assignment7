@@ -1,0 +1,112 @@
+'''
+Created on 2016年11月14日
+
+@author: bz866
+'''
+
+
+class interval(object):
+    
+    def __init__(self, s):
+        '''
+        Constructor
+        '''
+        self.s=s.strip()
+        left_bound=['(','[']
+        right_bound=[')',']']
+        
+        if s=='':
+            raise ValueError('Invalid Input: Need an input')
+        if self.s[0] not in left_bound or self.s[-1] not in right_bound:
+            raise ValueError ('Invalid Input: bounds of interval must be [] or ()')
+        try:
+            self.comma_interval=list(map(int,self.s[1:-1].split(",")))
+            if len(self.comma_interval) %2 != 0:
+                raise ValueError('Invalid Input: Two bounds are needed')
+            
+            self.left_inclusive=self.comma_interval[0]+1-left_bound.index(self.s[0])
+            self.right_inclusive=self.comma_interval[1]-1+right_bound.index(self.s[-1])
+            if self.left_inclusive>self.right_inclusive:
+                raise ValueError ('Invalid Input: Need logical right and left bounds')
+                    
+            self.left=(self.s[0],self.comma_interval[0])
+            self.right=(self.s[-1],self.comma_interval[1])
+            
+        except ValueError: 
+            raise ValueError('Invalid Input: Need interger inputs')
+        
+    def __repr__(self, *args, **kwargs):
+        '''
+        this function prints interval object
+        '''
+        return str(self.left[0])+str(self.left[1])+","+str(self.right[1])+str(self.right[0])
+    
+    def __eq__(self,other):
+        '''
+        This function check whether two intervals are the same despite the differences in formatting
+        '''
+        #Two intervals should be equal if the included lowest&highest bounds are the same
+        #E.g. [2,5]=(1,6)=(1,5]=[2,6)
+        if not isinstance(other, interval):
+            return False
+        if (self.left_inclusive==other.left_inclusive) and (self.right_inclusive==other.right_inclusive):
+            return True
+        else: 
+            return False
+
+def mergeable (int1, int2):
+    ''' if intervals can be merged '''
+    if (int1.left_inclusive<int2.left_inclusive):
+        if (int1.right_inclusive+1<int2.left_inclusive):
+            return False
+    elif (int2.left_inclusive<int1.left_inclusive): 
+        if (int2.right_inclusive+1<int1.left_inclusive):
+            return False
+    return True
+
+def mergeIntervals(int1, int2):
+    '''
+    This function merges the two interval objects if possible. It takes two arguments, both are interval objects.
+    '''
+    #Check whether the intervals are mergeable
+    if mergeable(int1, int2)==False:
+            raise ValueError ('Cannot Merge Intervals: Two intervals are not overlapped or adjacent')
+        
+    #Merge interval by re-define the interval bounds
+    if int1.left_inclusive<=int2.left_inclusive:
+        new_left=int1.left
+    else: new_left=int2.left
+    
+    if int1.right_inclusive>=int2.right_inclusive:
+        new_right=int1.right
+    else: new_right=int2.right
+    
+    #define the merged interval
+    newintervalstr=str(new_left[0])+str(new_left[1])+","+str(new_right[1])+str(new_right[0])
+    return interval(newintervalstr)
+
+def mergeOverlapping(intervals):
+    '''
+    This function merges all the overlapping and adjacent intervals from a list of intervals.It takes one argument of a list of interval objects, and returns the merged list.
+    '''
+    #sort interval list based on left bound
+    intervals.sort(key= lambda x: x.left_inclusive)
+    
+    #merge all mergeable intervals
+    merged=[intervals[0]]
+    for i in range(1, len(intervals)):
+        if mergeable(merged[-1],intervals[i]):
+            merged[-1]=mergeIntervals(merged[-1],intervals[i])
+        else:
+            merged.append(intervals[i])      
+    return merged
+
+def insert(intervals, newint):
+    '''
+    This function inserts one new interval in to the existing list of non-overlapping intervals, and merges the mergeds when possible.
+    '''
+    intervals.append(newint)
+    return mergeOverlapping(intervals)
+
+
+        

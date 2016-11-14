@@ -1,0 +1,18 @@
+'''
+Created on 2016年11月14日
+
+@author: bz866
+'''
+import sys
+from Interval import *
+
+def interface():
+    '''input intervals'''
+    while True:
+        try:
+            
+if __name__ == '__main__':
+    
+                
+        
+            
