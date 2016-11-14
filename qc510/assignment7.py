@@ -17,7 +17,7 @@ if __name__ == "__main__":
     newall = inter
     while quit == False:
         try:
-            newinter = input('Could you provide another interval?')
+            newinter = input('Could you provide another interval? Type quit to finish. ')
             if(newinter=='quit'):
                 break
             interval(newinter)       
