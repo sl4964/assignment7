@@ -1,12 +1,11 @@
 from interval import *
-from IPython.core.debugger import prompt
 
 class QuitError(Exception):
     pass
 
 def quittingInput(prompt):
     '''
-    Program will stop running if user types "quit" and raises QuitError
+    Program will stop running if user types "quit," which raises QuitError
     '''
     userinput = input(prompt)
     
@@ -40,6 +39,7 @@ def promptForInterval():
         except ValueError:
             print("Invalid interval")
     
+# Runs the program in the terminal
 if __name__ == "__main__":
     try:
         intervals = promptForList()

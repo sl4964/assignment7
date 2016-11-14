@@ -3,6 +3,9 @@ import re
 class interval(object):
     '''
     interval Class and its methods and helper functions.
+    Only integer representations of bound values are accepted.
+    Inclusive and exclusive bounds behave as they do on the number line; 
+    e.g. [x,y) is less than (x,y) and [x,y] contains (x,y)
     '''
 
     def __init__(self, userinput):
@@ -131,6 +134,7 @@ class interval(object):
         '''
         int1, int2 = sorted((self, other))
         return int1.inclusiveUpperBoundValue() + 1 == int2.inclusiveLowerBoundValue()
+    
     
 def mergeIntervals(int1, int2):
     '''
