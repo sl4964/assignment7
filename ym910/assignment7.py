@@ -3,7 +3,7 @@ import sys
 
 def loop():
 
-    '''initial input interval list'''
+    #initial input interval list
     while True:
         try:
             int_list=input("List of intervals?")
@@ -16,9 +16,13 @@ def loop():
             intervals=[]
 
             for intv in int_list:
+                
                 intervals.append(Interval(intv))
-            intervals=mergeOverlapping(intervals)
+            #break
+           intervals=mergeOverlapping(intervals)
             
+            
+   
 
         except ValueError as message:
             print(message)
@@ -26,15 +30,16 @@ def loop():
             sys.exit(0)
 
             
-       '''newly input intervals'''
+       #newly input intervals
         while True:
             try:
                 new_int=input("Interval?")
                 if new_int=='quit':
                     break
+                
                 else:
-                    new_intlist=insert(intervals,Interval(new_int))
-                    print (str(new_int_list)[1:-1])
+                    intervals=insert(intervals,Interval(new_int))
+                    print (str(intervals))
             except ValueError as message:
                 print(message)
             except EOFError:

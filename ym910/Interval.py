@@ -8,35 +8,40 @@ class Interval():
 
     def __init__ (self, user_input):
 
-        user_input=user_input.replace(' ','')
+ #       user_input=user_input.replace(' ','')
         
         ''' check the validity of the user input string,
         take input strings and transform to bounds and numbers.'''
-        
-        if (user_input[0] in ['(','[']) and (user_input[-1] in [')',']']) and (',' in user_input):
-            lbd=user_input[0] #left bound symbol
-            rbd=user_input[-1] #right bound symbol
-            lnum=int(user_input[1:-1].split(',')[0]) #lower bound number 
-            unum=int(user_input[1:-1].split(',')[-1]) #upper bound number
+        self.user_input=user_input.strip()
+
+        lbd_sign =['(','[']
+        rbd_sign =[')',']']
+        if self.user_input[0] in lbd_sign and self.user_input[-1] in rbd_sign:
+            self.lbd=user_input[0] #left bound symbol
+            self.rbd=user_input[-1] #right bound symbol
+            self.num_range=list(map(int,self.user_input[1:-1].split(','))) #the number range in list format
+            self.lnum=self.num_range[0] #lower bound number 
+            self.unum=self.num_range[-1] #upper bound number
+
+            if len(self.num_range)!=2:
+                raise ValueError("Please input valid bounds.")
             
             '''check validity mathematically.'''
         
-            if  (lbd=='[' and rbd ==']' and lnum<=unum) or (lbd=='(' and rbd ==']' and lnum <unum) or (lbd=='[' and rbd ==')' and lnum <unum) or (lbd=='(' and rbd ==')' and lnum <unum -1):
-                self.lbd=lbd
-                self.rbd=rbd
-                self.lnum=lnum
-                self.unum=unum
+            if  (self.lbd=='[' and self.rbd ==']' and self.lnum<=self.unum) or (self.lbd=='(' and self.rbd ==']' and self.lnum <self.unum) or (self.lbd=='[' and self.rbd ==')' and self.lnum <self.unum) or (self.lbd=='(' and self.rbd ==')' and self.lnum <self.unum -1):
+                
 
                 '''list of numbers the interval represents.'''
-                beginning_num=lnum
-                ending_num=unum
+                self.bg_num=self.lnum #beginning number
+                self.ed_num=self.unum #ending number
 
-                if lbd=='(':
-                    beginning_num=lnum+1
-                if rbd==')':
-                    ending_num=unum-1
+                if self.lbd=='(':
+                    self.bg_num=self.lnum+1 
+                if self.rbd==')':
+                    self.ed_num=self.unum-1
                     
-                self.list=range(beginning_num,ending_num+1)
+                self.lowerpt=(self.user_input[0],self.lnum)
+                self.upperpt=(self.user_input[-1],self.unum)
 
             else:
                 raise ValueError('Invalid number input.')
@@ -68,7 +73,7 @@ and its biggest number is bigger than the other's smallest, then they
 are mergeable. 
 '''
 def IsMergeable (int1, int2):
-    if int1.list[-1]+1 < int2.list[0] or int1.list[0] > int2.list[-1]+1:
+    if (int1.bg_num< int2.bg_num and int1.ed_num+1<int2.bg_num) or (int2.bg_num<int1.bg_num and int2.ed_num+1<int1.bg_num):
         return False
     return True
 
@@ -78,15 +83,18 @@ def mergeIntervals(int1, int2):
     if IsMergeable (int1, int2) == False:
         raise MergeError
 
-    if (int1.list[0]<=int2.list[0] and int1.lnum <= int2.lnum):
-        result=result+int1.lbd+str(int1.lnum)+','
+    if int1.bg_num>=int2.bg_num:
+        new_lbd=int1.lowerpt
+        
     else:
-        result=result+int2.lbd+str(int2.lnum)+','
-    if (int1.list[-1]>=int2.list[-1] and int1.lnum >= int2.lnum):
-        result=result+str(int1.lnum)+int1.lbd
+        new_lbd=int2.lowerpt
+    if int1.ed_num>=int2.ed_num:
+        new_rbd=int1.upperpt
     else:
-        result=result+str(int2.lnum)+int2.lbd
-           
+        new_rbd=int1.upperpt
+
+    newint=str(new_lbd[0])+str(new_lbd[1])+","+str(new_rbd[1])+str(new_rbd[0])
+    return Interval(newint)        
  
 '''We first sort the interval list by their lower bound number, then choose the first one 
 as base and merge others with the former iteratedly if applicable.'''
@@ -94,7 +102,7 @@ def mergeOverlapping(intervals):
     if intervals ==0:
         return []
 
-    intervals = sorted(intervals, key=lambda user_input: user_input.lnum)
+    intervals = sorted(intervals, key=lambda user_input: user_input.bg_num)
     result=[intervals[0]]
 
     for i in range (1, len(intervals)):
