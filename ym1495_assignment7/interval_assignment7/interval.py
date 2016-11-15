@@ -63,15 +63,23 @@ def mergeIntervals(int1,int2):
     else:
         left_end = min(int1.left_end, int2.left_end)
         right_end = max(int1.right_end, int2.right_end)
-        strM =  '[ %d , %d )'% (left_end, right_end) 
-        merged = Interval(strM)
-        return merged
+        str =  '[ %d , %d )'% (left_end, right_end) 
+        new_merge = Interval(str)
+        return new_merge
 
 def mergeOverlapping(intervals):
-    for int1 in intervals:
-        for int2 in intervals:
-            if mergeIntervals(int1, int2) != (int1, int2):
-                intervals.remove(int1)
-                intervals.remove(int2)
-                intervals.append(mergeIntervals(int1,int2))
-     
+    if len(intervals) in range(0, 1):
+        return intervals
+    else:
+        intervals = sorted(intervals, key = lambda interval: interval.left_end)
+#        print('Sort the list by lower bound)
+        merged_list = [intervals[0]]
+        for i in range(0, len(intervals)):
+            new_merge = mergeIntervals(merged_list[-1], intervals[i])
+            if type(new_merge) == tuple:
+                merged_list.append(intervals[i])
+#                print(' No Merge once')
+            else:
+                merged_list[-1] = new_merge
+#                print('merge once' )
+        return merged_list
