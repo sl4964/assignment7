@@ -11,7 +11,7 @@ while True:
             interval_list.append(x)
             
         except:
-            raise ValueError('Invalid input; see instructions in the module assignment7.py')        
+            raise ValueError('Invalid input. Intervals should be correctly formatted, and separated by commas')        
             break
                 
     break
