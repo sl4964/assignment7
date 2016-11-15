@@ -1,4 +1,7 @@
 
+
+
+
 import re
 
 
@@ -61,7 +64,7 @@ def mergeIntervals(int1, int2):
         int_left = int2
         int_right = int1
     
-    if int_left.highest_value < int_right.lowest_value:
+    if int_left.highest_value < int_right.lowest_value - 1:
         raise Exception('Merge failed')
     else:
         new_int_str = '['+ str(int_left.lowest_value) + ',' + str(int_right.highest_value) + ']'
@@ -128,9 +131,12 @@ def insert(intervals, newint):
     return final_intervals
 
 def print_intervals(intervals):
-    out_str = intervals[0].str
-    for intval in intervals[1:]:
-        out_str = out_str +', '+ intval.str
+    if intervals == []:
+        out_str = 'None'
+    else:
+        out_str = intervals[0].str
+        for intval in intervals[1:]:
+            out_str = out_str +', '+ intval.str
     print(out_str)
         
         
