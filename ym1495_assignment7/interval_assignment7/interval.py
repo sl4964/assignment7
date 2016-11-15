@@ -6,13 +6,16 @@ Created on Nov 14, 2016
 class IntervalErrors(Exception):
     '''Superclass of Exceptions'''
     pass
-class MissingBracket(Exception):
+class InputNotString(IntervalErrors):
+    def __str__(self):
+        return 'Please input as a string'
+class MissingBracket(IntervalErrors):
     def __str__(self):
         return 'Your input should state either inclusive or exclusive with [] or ().\n '
-class CommaError(Exception):
+class CommaError(IntervalErrors):
     def __str__(self):
         return 'Your input should include only one comma, separating the lower bound and upper bound.\n '
-class IntervalNoExistence(Exception):
+class IntervalNoExistence(IntervalErrors):
     def __str__(self):
         return 'Your interval has a non positive size, please check\n'
 #class Unmergeable(Exception):
@@ -23,12 +26,13 @@ class Interval(object):
     '''
     classdocs
     '''
-
-
+         
     def __init__(self, interval_input):
         '''
         Constructor
         '''
+        if type(interval_input) != str:
+            raise InputNotString
         self.input = interval_input.replace(" ","")
         self.left_bracket = self.input[0]
         self.right_bracket = self.input[-1]
@@ -83,3 +87,16 @@ def mergeOverlapping(intervals):
                 merged_list[-1] = new_merge
 #                print('merge once' )
         return merged_list
+    
+def insert(intervals, newint):
+    if type(newint) != Interval:
+        newint = Interval(newint)
+    if len(intervals) == 0:
+        intervals.append(newint)
+        return intervals
+    else:
+        intervals.append(newint)
+        intervals = sorted(intervals, key = lambda interval: interval.left_end)
+        intervals = mergeOverlapping(intervals)
+        return intervals
+    
