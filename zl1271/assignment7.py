@@ -1,6 +1,6 @@
 
 
-from zl1271.interval import *
+from interval import *
 
 def loop():
     user_input_str = input('Intervals?\n')
@@ -28,6 +28,7 @@ def loop():
                 else:
                     raise Exception('Invalid interval')
             except:
+                print('Invalid interval')
                 user_input_str = input('Intervals?\n')
                 user_input_str = re.sub(r'\s+', '', user_input_str)
     exit('The end')            

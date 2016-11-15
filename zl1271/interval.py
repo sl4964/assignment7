@@ -114,7 +114,7 @@ def can_merge(int1, int2):
 
 def get_can_merge_list(intervals):
     '''
-    Take a list of interval objects
+    Take a list of sorted interval objects
     Return a list of 1 and 0, indicating if the object can be merged with the next on the list
     '''
     can_merge_list = []
