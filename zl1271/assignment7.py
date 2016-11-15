@@ -5,7 +5,6 @@ from zl1271.interval import *
 def loop():
     user_input_str = input('Intervals?\n')
     user_input_str = re.sub(r'\s+', '', user_input_str)
-
   
     list_of_intervals = []
     while user_input_str.upper() != 'QUIT': 

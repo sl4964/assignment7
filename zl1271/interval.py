@@ -57,18 +57,24 @@ class interval(object):
         self.str = int_str
 
 def mergeIntervals(int1, int2):
-    if int1.lowest_value <= int2.lowest_value:
-        int_left = int1
-        int_right = int2
+    if can_merge(int1, int2):
+        lower_value = min([int1.lower_value,int2.lower_value])
+        higher_value = max([int1.higher_value,int2.higher_value])
+        
+        if lower_value == int1.lower_value:
+            lower_brac = int1.lower_brac
+        elif lower_value == int2.lower_value:
+            lower_brac = int2.lower_brac
+            
+        if higher_value == int1.higher_value:
+            higher_brac = int1.higher_brac
+        elif higher_value == int2.higher_value:
+            higher_brac = int2.higher_brac
+
+        new_int_str = lower_brac + str(lower_value) + ',' + str(higher_value) + higher_brac
     else:
-        int_left = int2
-        int_right = int1
-    
-    if int_left.highest_value < int_right.lowest_value - 1:
         raise Exception('Merge failed')
-    else:
-        new_int_str = '['+ str(int_left.lowest_value) + ',' + str(int_right.highest_value) + ']'
-        new_int = interval(new_int_str)
+    new_int = interval(new_int_str)
     return new_int
 
 def sort_intervals(intervals_list):
@@ -76,8 +82,10 @@ def sort_intervals(intervals_list):
     return new_interval_list
 
 def can_merge(int1, int2):
-    # Will call this after the list is sorted, thus assume int1's lower is smaller than int2's
-    return (int1.highest_value >= int2.lowest_value - 1)
+    sorted_list = sort_intervals([int1, int2])
+    former = sorted_list[0]
+    later = sorted_list[1]
+    return (former.highest_value >= later.lowest_value - 1)
 
 def get_can_merge_list(intervals):
     can_merge_list = []
