@@ -1,21 +1,26 @@
+"""
+This module contains the class 'interval'
+Three most important functions: "mergeInterval", "mergeOverlapping", and "insert"
+As well as other functions
 
-
-
+"""
 
 import re
 
-
-def is_int(s):
-    return re.match(r"[-+]?\d+$", s) is not None
-    # adapted from http://stackoverflow.com/questions/1265665/python-check-if-a-string-represents-an-int-without-using-try-except
-
 def is_interval_format(int_str):
+    """
+    Takes in a string and returns if it is in the format of an interval, i.e., starts with '(' or '[', then an int, 
+    then ',', then an int, then ')' or ']'
+    """
     if not re.match(r"(\(|\[)-?\d+,\s?-?\d+(\)|\])", int_str):
         return False
     else:
         return True
 
 def is_interval_content(int_str):
+    """
+    Takes a string in interval format and see if it is a valid interval
+    """
     lower_str,higher_str = int_str.split(",")
     lower_value = int(lower_str[1:])
     higher_value = int(higher_str[:-1])
@@ -33,12 +38,21 @@ def is_interval_content(int_str):
         return False
     
 def is_interval(int_str):
+    """
+    Returns if int_str is a string that forms a valid interval
+    """
     if is_interval_format(int_str):
         return is_interval_content(int_str)
+    else:
+        return False
     
 class interval(object):
     '''
-    classdocs
+    Takes a valid interval string, constructs an interval
+    self.lower_value and self.higher_value are ints, the lower/higher bound of the interval
+    self.lower_brac and self.higher_brac are str, the brackets (square or round)
+    self.lowest_value and self.highest_value are ints, represents the inclusive bounds
+    self.str is the string that represents the interval
     '''
     def __init__(self, int_str):
         lower_str,higher_str = int_str.split(",")
@@ -57,6 +71,10 @@ class interval(object):
         self.str = int_str
 
 def mergeIntervals(int1, int2):
+    '''
+    Takes two interval objects, and merges them
+    Raise error if cannot merge
+    '''
     if can_merge(int1, int2):
         lower_value = min([int1.lower_value,int2.lower_value])
         higher_value = max([int1.higher_value,int2.higher_value])
@@ -78,16 +96,27 @@ def mergeIntervals(int1, int2):
     return new_int
 
 def sort_intervals(intervals_list):
+    '''
+    Takes a list of interval objects, sort according to the lowest_value
+    '''
     new_interval_list = sorted(intervals_list, key=lambda x: x.lowest_value)
     return new_interval_list
 
 def can_merge(int1, int2):
+    '''
+    Take two intervals
+    Return if the two can merge
+    '''
     sorted_list = sort_intervals([int1, int2])
     former = sorted_list[0]
     later = sorted_list[1]
     return (former.highest_value >= later.lowest_value - 1)
 
 def get_can_merge_list(intervals):
+    '''
+    Take a list of interval objects
+    Return a list of 1 and 0, indicating if the object can be merged with the next on the list
+    '''
     can_merge_list = []
     if len(intervals) == 1:
         can_merge_list = [0]
@@ -100,6 +129,12 @@ def get_can_merge_list(intervals):
     return can_merge_list
 
 def mergeOverlapping(intervals):
+    '''
+    Takes a list of interval objects
+    Merge the overlapping ones
+    Return a new list
+    '''
+    
     sorted_intervals = sort_intervals(intervals)
     if len(sorted_intervals) == 1:
         return sorted_intervals
@@ -133,12 +168,20 @@ def mergeOverlapping(intervals):
         return merged_list
     
 def insert(intervals, newint):
+    '''
+    Takes a list of interval objects, and an interval object
+    Returns a new list of intervals, with the new interval merged or included
+    '''
     intervals.append(newint)
     not_sorted_all = list(intervals)
     final_intervals = mergeOverlapping(not_sorted_all)
     return final_intervals
 
 def print_intervals(intervals):
+    '''
+    Takes a list of intervals
+    Prints the strings indicating the intervals
+    '''
     if intervals == []:
         out_str = 'None'
     else:
