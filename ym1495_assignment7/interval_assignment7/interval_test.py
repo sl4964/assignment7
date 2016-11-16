@@ -59,7 +59,18 @@ class Interval_Test(unittest.TestCase):
         list2 = [a,b,c,d,e]
         self.assertEqual(mergeOverlapping(list2),f)
     
-#    def test_insert(self):
+    def test_insert(self):
+        a = Interval('(01,  4]')
+        b = Interval('[5,7]')
+        c = Interval('(10,  12]')
+        d = Interval('(15,  24]')
+        e = Interval('(7,  11]')
+        f = Interval('(23,  24]')
+        list1 = [a,b,c,d]
+        list2 = insert(list1, e)
+        self.assertEqual(list2,[Interval('[2,13)'), Interval('(15,24]')])
+        list3 = insert(list2, f)
+        self.assertEqual(list2,list3)
         
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
