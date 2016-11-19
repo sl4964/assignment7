@@ -1,0 +1,59 @@
+-- VERSION_4
+-- START DISKCACHE_2
+/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/.metadata/.plugins/org.eclipse.core.resources/.projects/bz866/com.python.pydev.analysis/v2_indexcache
+Interval_assignment.main|1479153550000000000|/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/main.py
+Interval_assignment.__init__|1479145145000000000|/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/__init__.py
+Interval_assignment.test|1479152239000000000|/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py
+-- END DISKCACHE
+-- START DICTIONARY
+4
+1=Interval_assignment.main
+4=Test
+3=Test.test_merge_fail
+2=Interval_assignment.test
+-- END DICTIONARY
+-- START TREE 1
+12
+_so|0|
+cmd|0|
+com|0|
+i|0|
+inp|1|inputloop!10@
+ins|0|
+int|0|
+iv_|0|
+mer|0|
+ove|0|
+sor|0|
+tes|1|Test!17@
+-- END TREE
+-- START TREE 2
+27
+__e|0|
+__i|0|
+__n|0|
+__o|0|
+__r|0|
+__s|0|
+_le|0|
+_ri|0|
+bou|0|
+com|0|
+end|0|
+err|0|
+fro|0|
+inp|0|
+ins|0|
+int|1|interval!3&19@
+lef|0|
+low|0|
+mer|0|
+num|0|
+par|0|
+rig|0|
+s|0|
+sta|0|
+tes|6|test_insert!4&18@test_invalidsample!4&18@test_mergeable!4&18@test_mergeOverlapping!4&18@test_merge_fail!4&18@test_valid!4&18@
+upp|0|
+val|0|
+-- END TREE

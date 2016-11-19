@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pydev-testrun version="1.0"?><pydev-testsuite>
+<summary errors="2" failures="1" finished="true" name="Test Run: 21" tests="6" total_time="Finished in: 0.00 secs."/>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="ok" test="Test.test_insert" time="0.00">
+<stdout/>
+<stderr/>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="error" test="Test.test_invalidinterval" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 26, in test_invalidinterval
+    with self.assertRaises(InputError):
+NameError: name 'InputError' is not defined
+]]></stderr>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="fail" test="Test.test_mergeOverlapping" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 77, in test_mergeOverlapping
+    self.assertEqual(str(mergeOverlapping(interval_for_merge)), str(merged_list))
+AssertionError: '[[1,5], [8,18]]' != '[[1,6), [8,18]]'
+- [[1,5], [8,18]]
+?     ^^
++ [[1,6), [8,18]]
+?     ^^
+
+]]></stderr>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="ok" test="Test.test_merge_fail" time="0.00">
+<stdout/>
+<stderr/>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="ok" test="Test.test_merge_success" time="0.00">
+<stdout/>
+<stderr/>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="error" test="Test.test_validinterval" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 18, in test_validinterval
+    self.assertEqual(int1.represent, [1, 2, 3, 4])
+AttributeError: 'interval' object has no attribute 'represent'
+]]></stderr>
+</test>
+<launch mode="run">
+<launch_memento><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration local="true" path="bz866 test.py"/>
+]]></launch_memento>
+</launch>
+</pydev-testsuite>

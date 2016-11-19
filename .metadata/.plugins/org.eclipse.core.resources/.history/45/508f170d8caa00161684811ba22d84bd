@@ -1,0 +1,41 @@
+'''
+Created on 2016年11月14日
+
+@author: bz866
+'''
+import sys
+from Interval_assignment.interval import *
+
+
+if __name__ == '__main__':
+    def interface():
+        '''input intervals'''
+        while True:
+            try:
+                initial_list = input('input lists of intervals, seperating with comma')
+                
+                if initial_list.lower() == 'quit':
+                    sys.exit(0)
+                
+                interval_list = initial_list. split(',')
+                intervals = []
+                for interval_item in interval_list:
+                    intervals.append(interval(interval_item))
+                break
+            except ValueError as word:
+                print(word)
+                
+        while True:
+            try:
+                next_interval = input('Interval?')
+                if next_interval == 'quit':
+                    break
+                new_interval_list = insert(intervals, interval(next_interval))
+                print(str(new_interval_list)[1,-1])
+            except ValueError as word:
+                print(word)
+            except EOFError:
+                break
+                    
+            
+                

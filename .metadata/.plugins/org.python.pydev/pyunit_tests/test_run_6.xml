@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pydev-testrun version="1.0"?><pydev-testsuite>
+<summary errors="6" failures="0" finished="true" name="Test Run: 6" tests="6" total_time="Finished in: 0.00 secs."/>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="error" test="Testclass.test_insert" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 44, in test_insert
+    self.insert_test_set=[[interval('[1,2]'), interval('[5,10]'), interval('(10,12]'), interval('[-3,-1]')],[interval('[1,9)'), interval('[-2,1)'),interval('(100,199)'), interval('[70,150)')]]
+TypeError: __init__() missing 1 required positional argument: 'right'
+]]></stderr>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="error" test="Testclass.test_interval_error" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 25, in test_interval_error
+    interval(item)
+TypeError: __init__() missing 1 required positional argument: 'right'
+]]></stderr>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="error" test="Testclass.test_interval_valids" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 19, in test_interval_valids
+    self.assertListEqual(list(map(lambda x: str(interval(x)),self.valid_test_set)),self.valid_answer_set)
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 19, in <lambda>
+    self.assertListEqual(list(map(lambda x: str(interval(x)),self.valid_test_set)),self.valid_answer_set)
+TypeError: __init__() missing 1 required positional argument: 'right'
+]]></stderr>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="error" test="Testclass.test_mergeIntervals_error" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 33, in test_mergeIntervals_error
+    self.merge_error_test_set=[[interval('[1,2]'), interval('[5,10)')],[interval('[1,9)'), interval('[-2,-1)')]]
+TypeError: __init__() missing 1 required positional argument: 'right'
+]]></stderr>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="error" test="Testclass.test_mergeIntervals_valid" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 28, in test_mergeIntervals_valid
+    self.merge_test_set=[[interval('[1,4]'), interval('[5,10)')],[interval('[1,9)'), interval('[5,14)')],[interval('[2,7)'), interval('(1,15)')]]
+TypeError: __init__() missing 1 required positional argument: 'right'
+]]></stderr>
+</test>
+<test location="/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py" status="error" test="Testclass.test_mergeOverlapping" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/Users/EricTseng/Desktop/Programming_for_DS/week8/assignment7/assignment7/bz866/Interval_assignment/test.py", line 39, in test_mergeOverlapping
+    self.mergeOverlapping_test_set=[[interval('[1,2]'), interval('[5,10]'), interval('(10,12]'), interval('[-3,-1)')],[interval('[1,9)'), interval('[-2,1)'),interval('(100,199)'), interval('[70,150)')]]
+TypeError: __init__() missing 1 required positional argument: 'right'
+]]></stderr>
+</test>
+<launch mode="run">
+<launch_memento><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration local="true" path="bz866 test.py"/>
+]]></launch_memento>
+</launch>
+</pydev-testsuite>

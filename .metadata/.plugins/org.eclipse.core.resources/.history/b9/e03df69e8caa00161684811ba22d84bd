@@ -1,0 +1,107 @@
+'''
+Created on 2016年11月14日
+
+@author: bz866
+'''
+
+class interval(object):
+    '''
+    classdocs
+    '''
+
+
+
+    def __init__(self, left, right):
+        if left > right:
+           raise ValueError("left value bigger than right")
+        self._left = left
+        self._right = right
+        
+    def __repr__(self):
+        return 'interval(%d, %d)' % (self._left, self._right)
+    
+    def __str__(self):
+        return '[%d, %d]' % (self._left, self._right)
+ 
+ 
+    '''Parse the representation of the interval'''
+    def parse_string(self, s):
+        s = str(s)
+        s = s.strip()
+        if s[0]=='[':
+            left_inclusive = True
+        elif s[0]=='(':
+            left_inclusive = False
+        else:
+            raise ValueError('The left bound must be [ or ( ')
+                                                       
+        if s[-1] ==']':
+            right_inclusive = True
+        elif s[-1] ==')':
+            right_inclusive = False
+        else:
+            raise ValueError('The right bound must be ] or ) ')
+                                                       
+        try:
+            comma_index = s.index(',')
+        except:
+            raise ValueError('there must be a comma between lower and upper')
+        
+        lower = int(s[1:comma_index])
+        upper = int(s[comma_index+1:-1])
+                                                       
+        if left_inclusive == True and right_inclusive == True:
+            return interval( (lower, upper) )
+        elif left_inclusive == False and right_inclusive == True:
+            return interval( (lower+1, upper) )
+        elif left_inclusive == True and right_inclusive == False:
+            return interval( (lower, upper-1) )
+        elif left_inclusive == False and right_inclusive == False:
+            return interval( (lower+1, upper-1) )
+        
+'''sort s1 and s2'''
+def sortTwo(int1, int2):
+    if int1._left < int2._left:
+        value_left = int1
+        value_right = int2
+    else:
+        value_left = int2
+        value_right = int1
+    return value_left, value_right
+
+'''determine overlap or adjacent'''
+def overlap_or_adjacent(int1, int2):
+    value_left, value_right = sortTwo(int1, int2)
+    if value_left._right < (value_right._left -1) :
+        return False
+    else:
+        return True
+
+'''merge intervals if it is possible'''
+def mergeIntervals(int1, int2):
+    judge = overlap_or_adjacent(int1, int2)
+    if judge == False:
+        raise ValueError('Invalid intervals. Input must be overlapping or adjacent.')
+    else:
+        return interval( min(int1._left, int2._left), max(int1._right, int2._right))
+
+'''merge all intervals whether they are overlapping or adjacent'''
+def mergeOverlapping(intervals):
+    intervals.sort(key = lambda x: x._left)
+    result = [intervals[0]]
+    for i in range(1, len(intervals)):
+        if len(intervals) == 0:
+            return []
+        elif overlap_or_adjacent(result[-1], intervals[i]):
+            result[-1] = mergeIntervals(result[-1], intervals[i])
+        else:
+            result.append(intervals[i])
+    return result
+
+'''insert a new interval into the existing one if it can be merged'''
+def insert(intervals, newint):
+    intervals.append(newint)
+    return mergeOverlapping(intervals)
+
+
+        
